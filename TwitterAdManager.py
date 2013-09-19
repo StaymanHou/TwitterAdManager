@@ -1,5 +1,7 @@
 from Lib.TwitterAdMonitor import TwitterAdMonitor
 from Lib.TwitterAdController import TwitterAdController
+import logging
+import Lib.Config as Config
 
 class TwitterAdManager(object):
 	"""docstring for TwitterAdManager"""
@@ -17,7 +19,9 @@ class TwitterAdManager(object):
 		self.TAController = TwitterAdController(self.ConfPath)
 	
 	def start(self):
-		print 'TwitterAdManager start'
+		config = Config.get()
+		print "'General','a':",config.get('General','a')
+		logging.info('TwitterAdManager start')
 		self.TAMonitor.start()
 		self.TAController.start()
 
@@ -28,7 +32,7 @@ class TwitterAdManager(object):
 	def join(self):
 		self.TAMonitor.join()
 		self.TAController.join()
-		print 'TwitterAdManager end'
+		logging.info('TwitterAdManager end')
 
 
 		

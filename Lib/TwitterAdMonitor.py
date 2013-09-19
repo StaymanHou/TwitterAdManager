@@ -1,5 +1,7 @@
 from multiprocessing import Process
 from time import sleep
+import logging
+import Config
 
 class TwitterAdMonitor(object):
 	"""docstring for TwitterAdMonitor"""
@@ -18,7 +20,9 @@ class TwitterAdMonitor(object):
 		self.myprocess.join()
 
 	def OperateFunction(ConfPath):
-		for i in range(10):
-			print 'This is TAMonitor. ConfPath: ', ConfPath
+		config = Config.get()
+		print "'Monitor','b':",config.get('Monitor','b')
+		for i in range(3):
+			logging.info('This is TAMonitor. ConfPath: '+ConfPath)
 			sleep(1)
 	OperateFunction = staticmethod(OperateFunction)
