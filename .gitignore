@@ -1,0 +1,12 @@
+# Compiled source #
+###################
+*.pyc
+# Backup & Temp #
+#################
+*.~
+# Log #
+#######
+log.txt
+# List file #
+#############
+list_files/*
