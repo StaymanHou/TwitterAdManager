@@ -1,7 +1,11 @@
 from multiprocessing import Process
+import threading
+from Queue import Queue
 from time import sleep
 import logging
 import Config
+from TwitterAdForeman import TwitterAdForeman
+from TwitterAdWorker import TwitterAdWorker
 
 class TwitterAdMonitor(object):
 	"""docstring for TwitterAdMonitor"""
@@ -21,17 +25,28 @@ class TwitterAdMonitor(object):
 
 	def OperateFunction():
 		config = Config.get()
-		logging.info('Controller Process started.')
+		logging.info('Monitor Process started.')
+		# create shared task queue and lock
+		TaskQueue = Queue(config.getint('Monitor', 'task_queue_size'))
+		TaskLock = threading.Lock()
+		# create empty thread poll
+		threads = []
 		# create foreman thread
-
-		# create 
+		thread = TwitterAdForeman(TaskQueue, TaskLock)
+		threads.append(thread)
+		# create worker thread
 		thread_max_num = config.getint('Monitor', 'worker_thread_max_num')
 		if thread_max_num < 1:
 			raise Exception('TwitterAdMonitor', 'worker_thread_max_num must be at least 1.')
+		for i in range(thread_max_num):
+			thread = TwitterAdWorker(TaskQueue, TaskLock)
+			threads.append(thread)
+		# start all thread
+		for thread in threads:
+			thread.start()
+		# wait for all threads to complete
+		for thread in threads:
+			thread.join()
+		logging.info('Monitor Process finished.')
 
-
-		#print "'Monitor','b':",config.get('Monitor','b')
-		#for i in range(3):
-		#	logging.info('This is TAMonitor.')
-		#	sleep(1)
 	OperateFunction = staticmethod(OperateFunction)
