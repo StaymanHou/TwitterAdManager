@@ -32,6 +32,6 @@ Config.read(CONFIG_FILE_PATH)
 #########
 # start #
 #########
-TAManager = TwitterAdManager('conf.cfg')
+TAManager = TwitterAdManager()
 TAManager.start()
 TAManager.join()

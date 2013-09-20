@@ -6,17 +6,13 @@ import Lib.Config as Config
 class TwitterAdManager(object):
 	"""docstring for TwitterAdManager"""
 	
-	ConfPath = None
 	TAMonitor = None
 	TAController = None
 
-	def __init__(self, ConfPath):
+	def __init__(self):
 		super(TwitterAdManager, self).__init__()
-		if ConfPath is None:
-			raise Exception('ConfPath not given.')		
-		self.ConfPath = ConfPath
-		self.TAMonitor = TwitterAdMonitor(self.ConfPath)
-		self.TAController = TwitterAdController(self.ConfPath)
+		self.TAMonitor = TwitterAdMonitor()
+		self.TAController = TwitterAdController()
 	
 	def start(self):
 		config = Config.get()

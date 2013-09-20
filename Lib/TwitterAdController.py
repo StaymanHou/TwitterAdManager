@@ -8,9 +8,9 @@ class TwitterAdController(object):
 
 	myprocess = None
 
-	def __init__(self, ConfPath):
+	def __init__(self):
 		super(TwitterAdController, self).__init__()
-		TACP = Process(target=self.OperateFunction, args=(ConfPath,))
+		TACP = Process(target=self.OperateFunction, args=())
 		self.myprocess = TACP
 
 	def start(self):
@@ -19,11 +19,10 @@ class TwitterAdController(object):
 	def join(self):
 		self.myprocess.join()
 
-	def OperateFunction(ConfPath):
+	def OperateFunction():
 		config = Config.get()
 		print "'Controller','c':",config.get('Controller','c')
-
 		for i in range(3):
-			logging.info('This is TAController. ConfPath: '+ConfPath)
+			logging.info('This is TAController')
 			sleep(1)
 	OperateFunction = staticmethod(OperateFunction)
