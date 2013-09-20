@@ -1,5 +1,5 @@
 from Queue import Queue
-from logging import logging
+import logging
 
 class MultiTubeQueue(object):
 	"""docstring for MultiTubeQueue"""
@@ -23,7 +23,7 @@ class MultiTubeQueue(object):
 	def put(self, tube_name, incoming_item):
 		if tube_name not in self.Queues:
 			raise Exception('MultiTubeQueue', 'tube_name does not exist')
-		self.Queues['tube_name']['queue'].put(incoming_item)
+		self.Queues[tube_name]['queue'].put(incoming_item)
 
 	def get(self):
 		for i in range(len(self.Queues)):
@@ -39,7 +39,7 @@ class MultiTubeQueue(object):
 		self.Queues[tube_name]['open'] = False
 
 	def open(self, tube_name):
-		if tube_name not in Queues:
+		if tube_name not in self.Queues:
 			logging.warning('Can\'t open a non-existing tube.')
 			return
 		self.Queues[tube_name]['open'] = True

@@ -21,7 +21,6 @@ class TwitterAdController(object):
 
 	def OperateFunction():
 		config = Config.get()
-		print "'Controller','c':",config.get('Controller','c')
 		for i in range(3):
 			logging.info('This is TAController')
 			sleep(1)

@@ -1,6 +1,6 @@
 from multiprocessing import Process
 import threading
-from Queue import Queue
+from MultiTubeQueue import MultiTubeQueue
 from time import sleep
 import logging
 import Config
@@ -27,7 +27,7 @@ class TwitterAdMonitor(object):
 		config = Config.get()
 		logging.info('Monitor Process started.')
 		# create shared task queue and lock
-		TaskQueue = Queue(config.getint('Monitor', 'task_queue_size'))
+		TaskQueue = MultiTubeQueue()
 		TaskLock = threading.Lock()
 		# create empty thread poll
 		threads = []

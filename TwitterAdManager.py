@@ -16,7 +16,6 @@ class TwitterAdManager(object):
 	
 	def start(self):
 		config = Config.get()
-		print "'General','a':",config.get('General','a')
 		logging.info('TwitterAdManager start')
 		self.TAMonitor.start()
 		self.TAController.start()
