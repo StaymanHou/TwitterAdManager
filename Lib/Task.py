@@ -1,14 +1,12 @@
 class Task(object):
-	"""docstring for Task"""
+	"""docstring for Task
+	   This is an abstract class
+	   with a perform method to be implemented
+	"""
 
-	name = None
-	id = None
-
-	def __init__(self, name, id):
+	def __init__(self):
 		super(Task, self).__init__()
-		self.name = name
-		self.id = id
 
 	def perform(self):
-		print 'Task #', self.id, ' performed for session ', self.name
+		raise Exception('Task', 'This is an abstract method. Please implement it in your subclass.')
 		
