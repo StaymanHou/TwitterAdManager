@@ -38,7 +38,7 @@ class TwitterAccount(object):
 	def __init__(self):
 		super(TwitterAccount, self).__init__()
 
-	def get_acc_list(active = True):
+	def get_list(active = True):
 		db = DB()
 		cur = db.execute(("SELECT *, DES_DECRYPT(`PSWD`,%s) AS DEPSWD FROM `Accounts` WHERE `ACTIVE`=%s", (db.key, int(active))))
 		acc_list = []
@@ -79,4 +79,4 @@ class TwitterAccount(object):
 			acc_list.append(acc)
 		return acc_list
 
-	get_acc_list = staticmethod(get_acc_list)
+	get_list = staticmethod(get_list)

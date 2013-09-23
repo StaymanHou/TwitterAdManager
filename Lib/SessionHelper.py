@@ -2,7 +2,7 @@ from TwitterAccount import TwitterAccount
 from TwitterSession import TwitterSession
 
 def update_sessions(twitter_sessions, task_queue):
-	acc_list = TwitterAccount.get_acc_list()
+	acc_list = TwitterAccount.get_list()
 	acc_list_pk_list = [acc.pk for acc in acc_list]
 	twitter_sessions_acc_pk_list = [ses.account.pk for ses in twitter_sessions]
 	# remove sessions from origin twitter_sessions which are no longer active
