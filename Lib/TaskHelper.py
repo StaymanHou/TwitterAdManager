@@ -9,7 +9,8 @@ def update_taskqueue(task_queue, twitter_sessions):
 		tasks = factory.get_delete_tasks()
 		tasks.extend(factory.get_create_tasks())
 		# check and generate update task
-		tasks.append(factory.get_local_update_task())
+		if 1:
+			tasks.append(factory.get_local_update_task())
 		# put into queue
 		for task in tasks:
-			task_queue.put(twitter_session, task)
+			task_queue.put(twitter_session.account.pk, task)

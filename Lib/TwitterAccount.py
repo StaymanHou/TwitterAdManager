@@ -40,7 +40,7 @@ class TwitterAccount(object):
 
 	def get_acc_list(active = True):
 		db = DB()
-		cur = db.execute(("SELECT *, DES_DECRYPT(`PSWD`,%s) AS DEPSWD FROM `Accounts` WHERE `ACTIVE`=%s", db.key, int(active)))
+		cur = db.execute(("SELECT *, DES_DECRYPT(`PSWD`,%s) AS DEPSWD FROM `Accounts` WHERE `ACTIVE`=%s", (db.key, int(active))))
 		acc_list = []
 		rows = cur.fetchall()
 		for row in rows:
@@ -53,7 +53,7 @@ class TwitterAccount(object):
 			acc.budget_limit_threshold = row['BUDGET_LIMIT_THRESHOLD']
 			acc.acc_budget = row['ACC_BUDGET']
 			acc.acc_budget_remain = row['ACC_BUDGET_REMAIN']
-			acc.poor_zscore_threashold = row['POOR_ZSCORE_THREASHOLD']
+			acc.poor_zscore_threshold = row['POOR_ZSCORE_THRESHOLD']
 			acc.effective_days = row['EFFECTIVE_DAYS']
 			acc.max_campaign_num = row['MAX_CAMPAIGN_NUM']
 			acc.user_num_low = row['USER_NUM_LOW']

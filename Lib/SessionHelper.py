@@ -1,6 +1,28 @@
+from TwitterAccount import TwitterAccount
+from TwitterSession import TwitterSession
+
 def update_sessions(twitter_sessions, task_queue):
-	twitter_sessions_from_db = ['1','2','3','4']
-	new_twitter_sessions = [item for item in twitter_sessions_from_db if item not in twitter_sessions]
-	for name in new_twitter_sessions:
-		task_queue.add_tube(name)
+	acc_list = TwitterAccount.get_acc_list()
+	acc_list_pk_list = [acc.pk for acc in acc_list]
+	twitter_sessions_acc_pk_list = [ses.account.pk for ses in twitter_sessions]
+	# remove sessions from origin twitter_sessions which are no longer active
+	remove_session_index_list = []
+	remove_session_acc_pk_list = []
+	for i in range(len(twitter_sessions_acc_pk_list)):
+		if twitter_sessions_acc_pk_list[i] not in acc_list_pk_list:
+			remove_session_index_list.append(i-len(acc_list))
+			remove_session_acc_pk_list.append(twitter_sessions_acc_pk_list[i])
+	for index in remove_session_index_list:
+		twitter_sessions.remove(twitter_sessions[index])
+	# add sessions which are new for twitter_sessions
+	new_twitter_sessions = []
+	for acc in acc_list:
+		if acc.pk not in twitter_sessions_acc_pk_list:
+			new_session = TwitterSession(acc)
+			new_twitter_sessions.append(new_session)
 	twitter_sessions.extend(new_twitter_sessions)
+	# update the tubes of task_queue
+	for pk in remove_session_acc_pk_list:
+		task_queue.remove_tube(pk)
+	for session in new_twitter_sessions:
+		task_queue.add_tube(session.account.pk)
