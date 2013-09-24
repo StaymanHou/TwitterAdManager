@@ -1,6 +1,8 @@
 from LocalUpdateTask import LocalUpdateTask
 from DeleteTask import DeleteTask
 from CreateTask import CreateTask
+from TwitterCampaign import TwitterCampaign
+from LocalStatus import LocalStatus
 
 class TaskFactory(object):
 	"""docstring for TaskFactory"""
@@ -15,12 +17,20 @@ class TaskFactory(object):
 		"""returns deletetasks as a list of tasks. if no new
 		   task return a empty list.
 		"""
-		return [DeleteTask(self.twitter_session, 1), DeleteTask(self.twitter_session, 2)]
+		camp_list = TwitterCampaign.get_list(self.twitter_session.account.fi_id, local_status=LocalStatus.TitletoPK['DeletePending'])
+		task_list = []
+		for camp in camp_list:
+			task_list.append(DeleteTask(self.twitter_session, camp))
+		return task_list
 
 	def get_create_tasks(self):
-		return [CreateTask(self.twitter_session, 'a'), CreateTask(self.twitter_session, 'b')]
+		camp_list = TwitterCampaign.get_list(self.twitter_session.account.fi_id, local_status=LocalStatus.TitletoPK['CreatePending'])
+		task_list = []
+		for camp in camp_list:
+			task_list.append(CreateTask(self.twitter_session, camp))
+		return task_list
 
-	def get_local_update_task(self):
+	def get_local_update_task(self, time=None):
 		"""returns one task. not a list
 		"""
 		return LocalUpdateTask(self.twitter_session, 921)
