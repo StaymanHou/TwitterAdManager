@@ -10,3 +10,6 @@ log.txt
 # List file #
 #############
 list_files/*
+# Testing script #
+##################
+test.py
