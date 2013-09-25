@@ -26,9 +26,27 @@ class TwitterSession(object):
         self.increase_ratio = config.getint('General', 'retry_waiting_time_increase_ratio')
         self.load_interval = config.getint('General', 'load_interval')
 
+    def get(self, url, **kwargs):
+        self.login()
+        return self.session.get(url, **kwargs)
+
+    def post(self, url, **kwargs):
+        self.login()
+        return self.session.post(url, **kwargs)
+
+    def get_root_url(self):
+        self.login()
+        return self.root_url
+
+    def get_auth_token(self):
+        self.login()
+        return self.auth_token
 
     def login(self):
-        """infinite loop until successful login"""
+        """infinite loop until successful login.
+           Please invoke this method at the begining of other method
+           to make sure the login status
+        """
         while not self.is_login:
             self.session = requests.Session()
             if self.commit_login() == 0:
@@ -90,10 +108,10 @@ class TwitterSession(object):
         if r.status_code!=200:
             logging.warning('login warning -8: /accounts page unexpected response')
             return -8
-        m = re.search('<a href="(.+?)/settings">Account settings</a>',r.text)
+        m = re.search('Payment methods</a></li><li class=\' \'><a href="(.+?)/settings">Account settings</a>',r.text)
         if m is None:
             logging.warning('login warning -9: /accounts page cant find Account settings for root url')
             return -9
-        self.root_url = m.group(1)
+        self.root_url = 'https://ads.twitter.com'+m.group(1)
         sleep(self.load_interval)
         return 0

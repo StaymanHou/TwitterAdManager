@@ -18,6 +18,7 @@ class TwitterCampaign(object):
     data = ''
     targeted_users = ''
     targeted_interests = ''
+    locations = ''
     pac_to_similar = True
     gender = 0
     accelerated_delivery = 1
@@ -51,6 +52,7 @@ class TwitterCampaign(object):
             camp.data = row['DATA']
             camp.targeted_users = row['TARGETED_USERS']
             camp.targeted_interests = row['TARGETED_INTERESTS']
+            camp.locations = row['LOCATIONS']
             camp.pac_to_similar = row['PAC_TO_SIMILAR']
             camp.gender = row['GENDER']
             camp.accelerated_delivery = row['ACCELERATED_DELIVERY']
@@ -63,12 +65,12 @@ class TwitterCampaign(object):
         db = DB()
         query_tuple = None
         if self.pk == 0:
-            query_tuple = ("INSERT INTO "/
-                    "Campaigns(ID, NAME, LOCAL_STATUS, ACTIVE, "/
-                    "START_TIME, END_TIME, FI_ID, TOTAL_BUDGET, "/
-                    "DAILY_BUDGET, MAX_BID, DATA, TARGETED_USERS, "/
-                    "TARGETED_INTERESTS, LOCATIONS, PAC_TO_SIMILAR, "/
-                    "GENDER, ACCELERATED_DELIVERY) "/
+            query_tuple = ("INSERT INTO "\
+                    "Campaigns(ID, NAME, LOCAL_STATUS, ACTIVE, "\
+                    "START_TIME, END_TIME, FI_ID, TOTAL_BUDGET, "\
+                    "DAILY_BUDGET, MAX_BID, DATA, TARGETED_USERS, "\
+                    "TARGETED_INTERESTS, LOCATIONS, PAC_TO_SIMILAR, "\
+                    "GENDER, ACCELERATED_DELIVERY) "\
                     "VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
                     (self.id, self.name, self.local_status, self.active,
                     self.start_time, self.end_time, self.fi_id, self.total_budget,
@@ -76,12 +78,12 @@ class TwitterCampaign(object):
                     self.targeted_interests, self.locations, self.pac_to_similar,
                     self.gender, self.accelerated_delivery))
         else:
-            query_tuple = ("UPDATE Campaigns SET "/
-                    "ID=%s, NAME=%s, LOCAL_STATUS=%s, ACTIVE=%s, "/
-                    "START_TIME=%s, END_TIME=%s, FI_ID=%s, TOTAL_BUDGET=%s, "/
-                    "DAILY_BUDGET=%s, MAX_BID=%s, DATA=%s, TARGETED_USERS=%s, "/
-                    "TARGETED_INTERESTS=%s, LOCATIONS=%s, PAC_TO_SIMILAR=%s, "/
-                    "GENDER=%s, ACCELERATED_DELIVERY=%s "/
+            query_tuple = ("UPDATE Campaigns SET "\
+                    "ID=%s, NAME=%s, LOCAL_STATUS=%s, ACTIVE=%s, "\
+                    "START_TIME=%s, END_TIME=%s, FI_ID=%s, TOTAL_BUDGET=%s, "\
+                    "DAILY_BUDGET=%s, MAX_BID=%s, DATA=%s, TARGETED_USERS=%s, "\
+                    "TARGETED_INTERESTS=%s, LOCATIONS=%s, PAC_TO_SIMILAR=%s, "\
+                    "GENDER=%s, ACCELERATED_DELIVERY=%s "\
                     "WHERE PK=%s",
                     (self.id, self.name, self.local_status, self.active,
                     self.start_time, self.end_time, self.fi_id, self.total_budget,
