@@ -80,3 +80,15 @@ class TwitterAccount(object):
 		return acc_list
 
 	get_list = staticmethod(get_list)
+
+	def set_monitor_finished_hour(self, new_monitor_finished_hour):
+		# no permission to create
+		if self.fi_id == 0:
+			return -1
+		# update start
+		db = DB()
+		query_tuple = ("UPDATE Accounts SET MONITOR_FINISHED_HOUR=%s WHERE FI_ID=%s",
+                (new_monitor_finished_hour, self.fi_id))
+		cur = db.execute(query_tuple)
+
+
