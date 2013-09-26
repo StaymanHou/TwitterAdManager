@@ -11,14 +11,15 @@ from datetime import datetime, timedelta
 import time
 from time import sleep
 import DateTimeHelper
+from TwitterSummary import TwitterSummary
 
 class LocalUpdateTask(TwitterMonitorTask):
 	"""docstring for LocalUpdateTask"""
 
 	twitter_session = None
 	hour_start = None
-	self.camp_local_list = []
-	self.camp_online_list = []
+	camp_local_list = []
+	camp_online_list = []
 
 	def __init__(self, twitter_session, hour_start):
 		super(LocalUpdateTask, self).__init__()
@@ -75,10 +76,10 @@ class LocalUpdateTask(TwitterMonitorTask):
 			try:
 				r = self.twitter_session.get(url, params=payload)
 			except Exception, e:
-				logging.warning('@%s No response while loading /data page!'%self.twitter_session.account.username)
+				logging.warning('@%s No response while loading %s'%(self.twitter_session.account.username, url))
 				return -1
 			if r.status_code!=200:
-				logging.warning('@%s Unexpected response while loading /data page! Status code: %d'%(self.twitter_session.account.username, r.status_code))
+				logging.warning('@%s Unexpected response while loading %s | Status code: %d'%(self.twitter_session.account.username, url, r.status_code))
 				return -2
 			campaign_data = json.loads(r.text)
 			self.camp_online_list = []
@@ -117,6 +118,20 @@ class LocalUpdateTask(TwitterMonitorTask):
 		return 0
 
 	def update_summary(self):
+		summary = TwitterSummary.get_last(self.twitter_session.account.fi_id)
+		summary.new_spend = 0
+		summary.new_engagements = 0
+		summary.new_impressions = 0
+		for camp in self.camp_online_list:
+			summary.new_spend += camp.data['spend']
+			summary.new_engagements += camp.data['engagements']
+			summary.new_impressions += camp.data['impressions']
+		summary.total_spend += summary.new_spend
+		summary.total_engagements += summary.new_engagements
+		summary.total_impressions += summary.new_impressions
+		summary.period_start = self.hour_start
+		summary.period_end = self.hour_start+DateTimeHelper.onehour
+		summary.save()
 		return 0
 
 	def remove_camp_local_no_online(self):
