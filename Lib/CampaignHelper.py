@@ -3,6 +3,15 @@ from datetime import datetime
 import Config
 import pytz
 
+def find_min_id(camp_list):
+	if len(camp_list) == 0:
+		return 0
+	min_id = camp_list[0].id
+	for camp in camp_list:
+		if camp.id < min_id:
+			min_id = camp.id
+	return min_id
+
 def get_delete_payload(camp, twitter_session):
 	payload = {'utf8': u'\u2713',
 			   'user': twitter_session.account.username,

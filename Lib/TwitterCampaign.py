@@ -15,7 +15,9 @@ class TwitterCampaign(object):
     total_budget = 100
     daily_budget = 10
     max_bid = 0.01
-    data = ''
+    data = {'spend':[],'total_spend':0,
+            'impressions':[],'total_impressions':0,
+            'engagements':[],'total_engagements':0}
     targeted_users = ''
     targeted_interests = ''
     locations = ''
@@ -49,7 +51,8 @@ class TwitterCampaign(object):
             camp.total_budget = row['TOTAL_BUDGET']
             camp.daily_budget = row['DAILY_BUDGET']
             camp.max_bid = row['MAX_BID']
-            camp.data = row['DATA']
+            if row['DATA']!=None and row['DATA']!='':
+                camp.data = json.loads(row['DATA'])
             camp.targeted_users = row['TARGETED_USERS']
             camp.targeted_interests = row['TARGETED_INTERESTS']
             camp.locations = row['LOCATIONS']
