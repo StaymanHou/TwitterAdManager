@@ -1,5 +1,9 @@
 from datetime import datetime, timedelta
 
+onehour = timedelta(seconds=3600)
+tenminutes = timedelta(seconds=600)
+oneminute = timedelta(seconds=60)
+
 def floorbyhour(input_datetime):
     d = timedelta(seconds=(input_datetime.minute*60+input_datetime.second),microseconds=input_datetime.microsecond)
     return input_datetime-d

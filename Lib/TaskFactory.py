@@ -30,7 +30,7 @@ class TaskFactory(object):
 			task_list.append(CreateTask(self.twitter_session, camp))
 		return task_list
 
-	def get_local_update_task(self, time=None):
+	def get_local_update_task(self, hour_start=None):
 		"""returns one task. not a list
 		"""
 		return LocalUpdateTask(self.twitter_session, 921)
