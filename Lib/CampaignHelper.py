@@ -3,6 +3,18 @@ from datetime import datetime
 import Config
 import pytz
 
+def kill(camp):
+	camp.local_status = LocalStatus.TitletoPK['Dead']
+	camp.end_time = datetime.now()
+	camp.active = False
+	camp.save()
+
+def update(campl, campo):
+	pass
+
+def create(campo):
+	pass
+
 def find_min_id(camp_list):
 	if len(camp_list) == 0:
 		return 0

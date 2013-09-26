@@ -136,11 +136,26 @@ class LocalUpdateTask(TwitterMonitorTask):
 
 	def remove_camp_local_no_online(self):
 		"""self.camp_local_list should be modified so that there is no dead"""
+		online_id_list = [camp.id for camp in self.camp_online_list]
+		for camp in list(self.camp_local_list):
+			if camp.id not in online_id_list:
+				CampaignHelper.kill(camp)
+				self.camp_local_list.remove(camp)
 		return 0
 
 	def update_exist(self):
 		"""self.camp_online_list should be modified so that there is no exist"""
+		camp_local_dict = {}
+		for camp in self.camp_local_list:
+			camp_local_dict[camp.id] = camp
+		for campo in list(self.camp_online_list):
+			if campo.id in camp_local_dict:
+				campl = camp_local_dict[campo.id]
+				CampaignHelper.update(campl, campo)
+				self.camp_online_list.remove(campo)
 		return 0
 
 	def create_new(self):
+		for camp in self.camp_online_list:
+			CampaignHelper.create(campo)
 		return 0
