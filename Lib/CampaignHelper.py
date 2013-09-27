@@ -10,10 +10,22 @@ def kill(camp):
 	camp.save()
 
 def update(campl, campo):
-	pass
+	campl.data['spend'].append(campo.data['spend'])
+	campl.data['total_spend'] += campo.data['spend']
+	campl.data['impressions'].append(campo.data['impressions'])
+	campl.data['total_impressions'] += campo.data['impressions']
+	campl.data['engagements'].append(campo.data['engagements'])
+	campl.data['total_engagements'] += campo.data['engagements']
+	campl.save()
 
 def create(campo):
-	pass
+	campo.data['total_spend'] = campo.data['spend']
+	campo.data['spend'] = [campo.data['spend']]
+	campo.data['total_impressions'] = campo.data['impressions']
+	campo.data['impressions'] = [campo.data['impressions']]
+	campo.data['total_engagements'] = campo.data['engagements']
+	campo.data['engagements'] = [campo.data['engagements']]
+	campo.save()
 
 def find_min_id(camp_list):
 	if len(camp_list) == 0:
