@@ -92,4 +92,5 @@ class TwitterAccount(object):
                 (self.monitor_finished_hour, self.fi_id))
 		cur = db.execute(query_tuple)
 
-
+	def set_controller_finished_hour(self, new_controller_finished_hour):
+		pass

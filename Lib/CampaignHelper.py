@@ -3,6 +3,15 @@ from datetime import datetime
 import Config
 import pytz
 
+def get_poor_performance_camp_list(fi_id):
+	pass
+
+def set_delete_pending(PoorCmpList):
+	pass
+
+def generate_createpending_camp(fi_id):
+	pass
+
 def kill(camp):
 	camp.local_status = LocalStatus.TitletoPK['Dead']
 	camp.end_time = datetime.now()

@@ -48,6 +48,11 @@ class TwitterCampaign(object):
         self.gender = 0
         self.accelerated_delivery = 1
 
+    def get_alive_createpending_num(fi_id):
+        pass
+
+    get_alive_createpending_num = staticmethod(get_alive_createpending_num)
+
     def get_list(fi_id, local_status=None):
         db = DB()
         query_tuple = None

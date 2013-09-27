@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 
+oneday = timedelta(days=1)
 onehour = timedelta(seconds=3600)
 tenminutes = timedelta(seconds=600)
 oneminute = timedelta(seconds=60)
