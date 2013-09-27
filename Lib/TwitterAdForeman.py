@@ -24,11 +24,11 @@ class TwitterAdForeman(threading.Thread):
             raise Exception('TwitterAdForeman', 'check_interval_in_sec must be at least 1.')
 
     def run(self):
-        logging.info('TwitterAdForeman started')
+        logging.info('TwitterAdForeman thread started')
         while 1:
             self.check()
             sleep(self.CheckInterval)
-        logging.info('TwitterAdForeman finished')
+        logging.info('TwitterAdForeman thread finished')
 
     def check(self):
         self.TaskLock.acquire()

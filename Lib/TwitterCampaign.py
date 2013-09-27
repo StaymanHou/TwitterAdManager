@@ -27,6 +27,26 @@ class TwitterCampaign(object):
 
     def __init__(self):
         super(TwitterCampaign, self).__init__()
+        self.pk = 0
+        self.id = 0
+        self.name = ''
+        self.local_status = None
+        self.active = False
+        self.start_time = None
+        self.end_time = None
+        self.fi_id = 0
+        self.total_budget = 100
+        self.daily_budget = 10
+        self.max_bid = 0.01
+        self.data = {'spend':[],'total_spend':0,
+                     'impressions':[],'total_impressions':0,
+                     'engagements':[],'total_engagements':0}
+        self.targeted_users = ''
+        self.targeted_interests = ''
+        self.locations = ''
+        self.pac_to_similar = True
+        self.gender = 0
+        self.accelerated_delivery = 1
 
     def get_list(fi_id, local_status=None):
         db = DB()

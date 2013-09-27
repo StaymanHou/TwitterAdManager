@@ -11,6 +11,7 @@ class TwitterAdWorker(threading.Thread):
     
     config = None
     CheckInterval = 0
+    LoadInterval = 0
     TaskQueue = None
     TaskLock = None
 
@@ -22,13 +23,16 @@ class TwitterAdWorker(threading.Thread):
         self.CheckInterval = self.config.getint('Monitor_Worker', 'check_interval_in_sec')
         if self.CheckInterval < 1:
             raise Exception('TwitterAdWorker', 'check_interval_in_sec must be at least 1.')
+        self.LoadInterval = self.config.getint('General', 'load_interval')
+        if self.LoadInterval < 0:
+            raise Exception('TwitterAdWorker', 'load_interval must be at least 0.')
 
     def run(self):
-        logging.info('TwitterAdWorker started')
+        logging.info('TwitterAdWorker thread started')
         while 1:
             sleep(self.CheckInterval)
             self.check()
-        logging.info('TwitterAdWorker finished')
+        logging.info('TwitterAdWorker thread finished')
 
     def check(self):
         while 1:
@@ -43,4 +47,4 @@ class TwitterAdWorker(threading.Thread):
                 self.TaskLock.acquire()
                 self.TaskQueue.open(tube_name)
                 self.TaskLock.release()
-                sleep(0)
+                sleep(self.LoadInterval)

@@ -28,6 +28,7 @@ class LocalUpdateTask(TwitterMonitorTask):
 
 	def perform(self):
 		"""invoke self.do() until success: return 0"""
+		
 		while self.do():
 			pass
 		logging.info('@%s Local Update succeeded.'%self.twitter_session.account.username)
@@ -84,7 +85,7 @@ class LocalUpdateTask(TwitterMonitorTask):
 			campaign_data = json.loads(r.text)
 			self.camp_online_list = []
 			#fetch data
-			for key, value in campaign_data['campaigns']:
+			for key, value in campaign_data['campaigns'].iteritems():
 				if value['active']:
 					camp = TwitterCampaign()
 					camp.id = int(key)
@@ -157,5 +158,5 @@ class LocalUpdateTask(TwitterMonitorTask):
 
 	def create_new(self):
 		for camp in self.camp_online_list:
-			CampaignHelper.create(campo)
+			CampaignHelper.create(camp)
 		return 0

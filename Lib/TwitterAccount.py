@@ -87,8 +87,9 @@ class TwitterAccount(object):
 			return -1
 		# update start
 		db = DB()
+		self.monitor_finished_hour = new_monitor_finished_hour
 		query_tuple = ("UPDATE Accounts SET MONITOR_FINISHED_HOUR=%s WHERE FI_ID=%s",
-                (new_monitor_finished_hour, self.fi_id))
+                (self.monitor_finished_hour, self.fi_id))
 		cur = db.execute(query_tuple)
 
 

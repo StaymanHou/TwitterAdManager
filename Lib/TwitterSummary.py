@@ -42,10 +42,10 @@ class TwitterSummary(object):
         query_tuple = ("INSERT INTO "\
                 "Summaries(FI_ID, PERIOD_START, PERIOD_END, "\
                 "TOTAL_SPEND, TOTAL_IMPRESSIONS, TOTAL_ENGAGEMENTS, "\
-                "NEW_SPEND, NEW_IMPRESSIONS, NEW_ENGAGEMENTS"\
+                "NEW_SPEND, NEW_IMPRESSIONS, NEW_ENGAGEMENTS) "\
                 "VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s)",
                 (self.fi_id, self.period_start, self.period_end,
-                self.total_spend, total_impressions, total_engagements,
-                new_spend, new_impressions, new_engagements))
+                self.total_spend, self.total_impressions, self.total_engagements,
+                self.new_spend, self.new_impressions, self.new_engagements))
         cur = db.execute(query_tuple)
         self.pk = cur.lastrowid
