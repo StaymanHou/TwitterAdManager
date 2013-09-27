@@ -11,7 +11,7 @@ class TwitterAccount(object):
 	budget_limit_threshold = 0.0
 	acc_budget = 0.0
 	acc_budget_remain = 0.0
-	poor_zscore_threashold = 0.0
+	poor_zscore_threshold = 0.0
 	effective_days = 7
 	max_campaign_num = 200
 	user_num_low = 0

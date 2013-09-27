@@ -2,15 +2,19 @@ from LocalStatus import LocalStatus
 from datetime import datetime
 import Config
 import pytz
+import TwitterAdAnalyzer
+import TwitterAdGenerator
 
-def get_poor_performance_camp_list(fi_id):
-	pass
+def get_poor_performance_camp_list(account):
+	return TwitterAdAnalyzer.GetPoorPfmcCmpListIMPBased(account)
 
-def set_delete_pending(PoorCmpList):
-	pass
+def set_delete_pending(camp_list):
+	for camp in camp_list:
+		camp.local_status = LocalStatus.TitletoPK['DeletePending']
+		camp.save()
 
-def generate_createpending_camp(fi_id):
-	pass
+def generate_createpending_camp(account, generate_num):
+	TwitterAdGenerator.crtpd2refillcmp(account, generate_num)
 
 def kill(camp):
 	camp.local_status = LocalStatus.TitletoPK['Dead']
