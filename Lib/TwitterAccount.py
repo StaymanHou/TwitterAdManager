@@ -93,4 +93,12 @@ class TwitterAccount(object):
 		cur = db.execute(query_tuple)
 
 	def set_controller_finished_hour(self, new_controller_finished_hour):
-		pass
+		# no permission to create
+		if self.fi_id == 0:
+			return -1
+		# update start
+		db = DB()
+		self.controller_finished_hour = new_controller_finished_hour
+		query_tuple = ("UPDATE Accounts SET CONTROLLER_FINISHED_HOUR=%s WHERE FI_ID=%S",
+				(self.controller_finished_hour, self.fi_id))
+		cur = db.execute(query_tuple)

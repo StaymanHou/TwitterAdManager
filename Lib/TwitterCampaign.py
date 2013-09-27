@@ -49,7 +49,12 @@ class TwitterCampaign(object):
         self.accelerated_delivery = 1
 
     def get_alive_createpending_num(fi_id):
-        pass
+        db = DB()
+        query_tuple = ("SELECT COUNT(*) AS COUNT FROM Campaigns WHERE (LOCAL_STATUS = 2 OR LOCAL_STATUS = 3) AND FI_ID=%s",fi_id)
+        cur = db.execute(query_tuple)
+        if cur.rowcount == 0:
+            raise Exception('TwitterCampaign', 'No such user %d'%fi_id)
+        return cur.fetchone()['COUNT']
 
     get_alive_createpending_num = staticmethod(get_alive_createpending_num)
 
