@@ -99,6 +99,6 @@ class TwitterAccount(object):
 		# update start
 		db = DB()
 		self.controller_finished_hour = new_controller_finished_hour
-		query_tuple = ("UPDATE Accounts SET CONTROLLER_FINISHED_HOUR=%s WHERE FI_ID=%S",
+		query_tuple = ("UPDATE Accounts SET CONTROLLER_FINISHED_HOUR=%s WHERE FI_ID=%s",
 				(self.controller_finished_hour, self.fi_id))
 		cur = db.execute(query_tuple)

@@ -33,7 +33,7 @@ def GetPoorPfmcCmpListIMPBased(account):
     dltpd_cmp_lst = []
     for alv_cmp in alive_cmp_lst:
         startpartcut = alv_cmp.start_time.hour
-        temp_data = json.loads(alv_cmp.data)['impressions'][startpartcut:]
+        temp_data = alv_cmp.data['impressions'][startpartcut:]
         if len(temp_data)<24:
             continue
         if alv_cmp.max_bid not in dist_dict:

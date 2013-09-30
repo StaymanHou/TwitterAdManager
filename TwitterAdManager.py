@@ -24,6 +24,13 @@ class TwitterAdManager(object):
 		pass
 		# TO-DO
 
+	def __del__(self):
+		print 'del called'
+		if self.TAMonitor.is_alive():
+			self.TAMonitor.terminate()
+		if self.TAController.is_alive():
+			self.TAController.terminate()
+
 	def join(self):
 		self.TAMonitor.join()
 		self.TAController.join()

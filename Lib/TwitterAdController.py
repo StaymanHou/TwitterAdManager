@@ -5,6 +5,8 @@ import Config
 from TwitterAccount import TwitterAccount
 import DateTimeHelper
 import CampaignHelper
+from datetime import datetime
+from TwitterCampaign import TwitterCampaign
 
 class TwitterAdController(object):
 	"""docstring for TwitterAdController"""
@@ -21,6 +23,12 @@ class TwitterAdController(object):
 
 	def join(self):
 		self.myprocess.join()
+
+	def is_alive(self):
+		return self.myprocess.is_alive()
+
+	def terminate(self):
+		self.myprocess.terminate()
 
 	def OperateFunction():
 		config = Config.get()
