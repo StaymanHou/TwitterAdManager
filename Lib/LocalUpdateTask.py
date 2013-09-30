@@ -30,8 +30,8 @@ class LocalUpdateTask(TwitterMonitorTask):
 		"""invoke self.do() until success: return 0"""
 		
 		while self.do():
-			pass
-		logging.info('@%s Local Update succeeded.'%self.twitter_session.account.username)
+			logging.info('@%s Local Update for %s failed. Retry'%(self.twitter_session.account.username, self.hour_start.__str__()))
+		logging.info('@%s Local Update for %s succeeded.'%(self.twitter_session.account.username, self.hour_start.__str__()))
 
 	def do(self):
 		"""return negative if fail, return 0 if succeed"""
@@ -71,7 +71,7 @@ class LocalUpdateTask(TwitterMonitorTask):
 					   'start': str(int(time.mktime(self.hour_start.timetuple()))),
 					   'end': str(int(time.mktime((self.hour_start+DateTimeHelper.onehour).timetuple()))),
 					   'clients': 'false',
-					   'category': 'tc%3At',
+					   'category': 'tc:t',
 					   'fi': str(self.twitter_session.account.fi_id),
 					   'campaign_list': ''}
 			try:
@@ -84,7 +84,7 @@ class LocalUpdateTask(TwitterMonitorTask):
 				return -2
 			campaign_data = json.loads(r.text)
 			self.camp_online_list = []
-			#fetch data
+			# fetch data
 			for key, value in campaign_data['campaigns'].iteritems():
 				if value['active']:
 					camp = TwitterCampaign()
@@ -115,7 +115,7 @@ class LocalUpdateTask(TwitterMonitorTask):
 				break
 			if int(re.search(':(.+?)$', new_cursor).group(1)) <= CampaignHelper.find_min_id(self.camp_local_list):
 				break
-			cursor = new_cursor.replace(':', '%3A')
+			cursor = new_cursor
 		return 0
 
 	def update_summary(self):
