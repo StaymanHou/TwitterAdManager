@@ -63,6 +63,7 @@ class LocalUpdateTask(TwitterMonitorTask):
 		"""not only this hour's list but also this hour's data"""
 		config = Config.get()
 		cursor = ''
+		self.camp_online_list = []
 		for i in range(config.getint('Monitor', 'max_campaign_scan_pages')):
 			url = self.twitter_session.get_root_url()+'/campaigns_dashboard/data'
 			payload = {'user': self.twitter_session.account.username,
@@ -83,7 +84,6 @@ class LocalUpdateTask(TwitterMonitorTask):
 				logging.warning('@%s Unexpected response while loading %s | Status code: %d'%(self.twitter_session.account.username, url, r.status_code))
 				return -2
 			campaign_data = json.loads(r.text)
-			self.camp_online_list = []
 			# fetch data
 			for key, value in campaign_data['campaigns'].iteritems():
 				if value['active']:
