@@ -104,11 +104,12 @@ class TwitterSession(object):
             r = self.session.get(url)
         except Exception, e:
             logging.warning('login warning -7: /accounts page request error | %s'%str(e))
-            return -8
+            return -7
         if r.status_code!=200:
             logging.warning('login warning -8: /accounts page unexpected response')
             return -8
-        m = re.search('Payment methods</a></li><li class=\' \'><a href="(.+?)/settings">Account settings</a>',r.text)
+        # m = re.search('Payment methods</a></li><li class=\' \'><a href="(.+?)/settings">Account settings</a>',r.text)
+        m = re.search('<li class=\'active \'><a href="(.+?)/campaigns">Campaigns</a></li>',r.text)
         if m is None:
             logging.warning('login warning -9: /accounts page cant find Account settings for root url')
             return -9
