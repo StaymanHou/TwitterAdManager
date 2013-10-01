@@ -8,9 +8,14 @@ from TwitterAdForeman import TwitterAdForeman
 from TwitterAdWorker import TwitterAdWorker
 
 class TwitterAdMonitor(object):
-	"""docstring for TwitterAdMonitor"""
+	"""This class operates as a monitor. It keeps updating data between local database 
+		and twitter server. Call :meth:`Lib.TwitterAdMonitor.TwitterAdMonitor.start` to start 
+		the monitor. The function the process performs is implemented in the static method 
+		:meth:`Lib.TwitterAdMonitor.TwitterAdMonitor.OperateFunction`.
+	"""
 
 	myprocess = None
+	"""hold a :class:`multiprocessing.Process`."""
 
 	def __init__(self):
 		super(TwitterAdMonitor, self).__init__()
@@ -18,12 +23,27 @@ class TwitterAdMonitor(object):
 		self.myprocess = TAMP
 
 	def start(self):
+		"""Start the process. Call :meth:`Lib.TwitterAdMonitor.TwitterAdMonitor.myprocess.start`."""
 		self.myprocess.start()
 
 	def join(self):
+		"""Wait for the process to join. Call :meth:`Lib.TwitterAdMonitor.TwitterAdMonitor.myprocess.join`."""
 		self.myprocess.join()
 
+	def is_alive(self):
+		"""return a boolean indicates if myprocess is alive"""
+		return self.myprocess.is_alive()
+
+	def terminate(self):
+		"""Terminate myprocess."""
+		self.myprocess.terminate()
+
 	def OperateFunction():
+		"""This is a static method. It setups a number of threads including :class:`Lib.TwitterAdForeman.TwitterAdForeman` 
+			and :class:`Lib.TwitterAdWorker.TwitterAdWorker` according to the config.ini. 
+			You can modify the value of '[Monitor] - worker_thread_max_num'. You must have at least 
+			one thread. After the setup, it starts all of the threads, and wait for the threads join.
+		"""
 		config = Config.get()
 		logging.info('Monitor Process started.')
 		# create shared task queue and lock

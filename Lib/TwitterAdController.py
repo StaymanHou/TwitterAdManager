@@ -9,9 +9,14 @@ from datetime import datetime
 from TwitterCampaign import TwitterCampaign
 
 class TwitterAdController(object):
-	"""docstring for TwitterAdController"""
+	"""This class operates as a controller. It controls the ads on the local 
+		database. It does not perform any communication with twitter server. 
+		It just checks if there are enough ads alive, generate new campaigns, 
+		and delete poorly-performing ads.
+	"""
 
 	myprocess = None
+	"""hold a :class:`multiprocessing.Process`."""
 
 	def __init__(self):
 		super(TwitterAdController, self).__init__()
@@ -19,18 +24,29 @@ class TwitterAdController(object):
 		self.myprocess = TACP
 
 	def start(self):
+		"""Start the process. Call :meth:`Lib.TwitterAdController.TwitterAdController.myprocess.start`."""
 		self.myprocess.start()
 
 	def join(self):
+		"""Wait for the process to join. Call :meth:`Lib.TwitterAdController.TwitterAdController.myprocess.join`."""
 		self.myprocess.join()
 
 	def is_alive(self):
+		"""Return a boolean indicates if myprocess is alive."""
 		return self.myprocess.is_alive()
 
 	def terminate(self):
+		"""Terminate myprocess."""
 		self.myprocess.terminate()
 
 	def OperateFunction():
+		"""This is a static method. Periodically, it checks all active accounts. 
+			If the account meets the condition of commit a new check, it will do the following instructions.
+			Get poorly-performing campaign list by calling :func:`Lib.CampaignHelper.get_poor_performance_camp_list`. 
+			Put the poor campaigns into delete_pending by calling :func:`Lib.CampaignHelper.set_delete_pending`. 
+			If number of alive campaigns is less than max_campaign_num, 
+			generate create_pending campaigns to full by calling :func:`Lib.CampaignHelper.generate_createpending_camp`.
+		"""
 		config = Config.get()
 		logging.info('Controller Process started.')
 		while 1:

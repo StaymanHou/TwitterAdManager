@@ -9,4 +9,3 @@ class Task(object):
 
 	def perform(self):
 		raise Exception('Task', 'This is an abstract method. Please implement it in your subclass.')
-		
