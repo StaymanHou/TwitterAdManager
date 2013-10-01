@@ -4,7 +4,9 @@ import logging
 import Lib.Config as Config
 
 class TwitterAdManager(object):
-	"""docstring for TwitterAdManager"""
+	"""docstring for TwitterAdManager
+		test
+		test"""
 	
 	TAMonitor = None
 	TAController = None

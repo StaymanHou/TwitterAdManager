@@ -29,7 +29,7 @@ class CreateTask(TwitterMonitorTask):
 			logging.info('@%s Create campaign [id=%d] succeeded.'%(self.twitter_session.account.username, self.camp.id))
 		else:
 			CampaignHelper.set_campaign_create_fail(self.camp)
-			if r.status_code is None:
+			if not hasattr(r, 'status_code') or r.status_code is None:
 				logging.warning('@%s Create campaign [pk=%d] failed. No response'%(self.twitter_session.account.username, self.camp.pk))
 			else:
 				logging.warning('@%s Create campaign [pk=%d] failed. Status code: %d'%(self.twitter_session.account.username, self.camp.pk, r.status_code))
