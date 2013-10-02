@@ -9,6 +9,8 @@ class MultiTubeQueue(object):
 
 	def __init__(self):
 		super(MultiTubeQueue, self).__init__()
+		self.Queues = {}
+		self.pointer = 0
 
 	def add_tube(self, tube_name):
 		if tube_name in self.Queues:

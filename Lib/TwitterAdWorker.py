@@ -61,6 +61,6 @@ class TwitterAdWorker(threading.Thread):
                 self.TaskLock.release()
                 task.perform()
                 self.TaskLock.acquire()
-                self.TaskQueue.open(tube_name)
+                self.TaskQueue.open(tube_name, task)
                 self.TaskLock.release()
                 sleep(self.LoadInterval)
