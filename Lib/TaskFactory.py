@@ -5,7 +5,11 @@ from TwitterCampaign import TwitterCampaign
 from LocalStatus import LocalStatus
 
 class TaskFactory(object):
-	"""docstring for TaskFactory"""
+	"""TaskFactory is a Factory for generating :class:`Lib.Task.Task`s. 
+		A factory must be initialized with a :class:`Lib.TwitterSession.TwitterSession`.
+		Every Task it generates will be given a twitter_session reference which 
+		was setted upon initialization.
+	"""
 
 	twitter_session = None
 
@@ -14,8 +18,8 @@ class TaskFactory(object):
 		self.twitter_session = twitter_session
 
 	def get_delete_tasks(self):
-		"""returns deletetasks as a list of tasks. if no new
-		   task return a empty list.
+		"""Returns a list of :class:`Lib.DeleteTask.DeleteTask`. if no new
+			task return a empty list.
 		"""
 		camp_list = TwitterCampaign.get_list(self.twitter_session.account.fi_id, local_status=LocalStatus.TitletoPK['DeletePending'])
 		task_list = []
@@ -24,6 +28,9 @@ class TaskFactory(object):
 		return task_list
 
 	def get_create_tasks(self):
+		"""Returns a list of :class:`Lib.CreateTask.CreateTask`. if no new 
+			task return a empty list.
+		"""
 		camp_list = TwitterCampaign.get_list(self.twitter_session.account.fi_id, local_status=LocalStatus.TitletoPK['CreatePending'])
 		task_list = []
 		for camp in camp_list:
@@ -31,6 +38,6 @@ class TaskFactory(object):
 		return task_list
 
 	def get_local_update_task(self, hour_start=None):
-		"""returns one task. not a list
+		"""returns one :class:`Lib.LocalUpdateTask.LocalUpdateTask`. **not a list!**
 		"""
 		return LocalUpdateTask(self.twitter_session, hour_start)

@@ -3,8 +3,10 @@ import logging
 import CampaignHelper
 
 class DeleteTask(TwitterMonitorTask):
-	"""docstring for DeleteTask"""
-
+	"""This task will hold a reference of a :class:`Lib.TwitterSession.TwitterSession` 
+		while initialized. Perform as a task to delete a 'delete_pending task' on twitter server, 
+		and update the localstatus to 'dead'(or 'delete_fail' if failed).
+	"""
 	twitter_session = None
 	camp = None
 
@@ -14,6 +16,10 @@ class DeleteTask(TwitterMonitorTask):
 		self.camp = camp
 
 	def perform(self):
+		"""Perform deleting a 'delete_pending task' on twitter server, 
+			and updating the localstatus to 'dead'(or 'delete_fail' if failed).
+			See abstract method :func:`Lib.TwitterMonitorTask.TwitterMonitorTask.perform`.
+		"""
 		url = self.twitter_session.get_root_url()+'/campaigns/destroy'
 		payload = CampaignHelper.get_delete_payload(self.camp, self.twitter_session)
 		flag_success = True

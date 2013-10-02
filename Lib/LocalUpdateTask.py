@@ -14,7 +14,11 @@ import DateTimeHelper
 from TwitterSummary import TwitterSummary
 
 class LocalUpdateTask(TwitterMonitorTask):
-	"""docstring for LocalUpdateTask"""
+	"""This task will hold a reference of a :class:`Lib.TwitterSession.TwitterSession` 
+		while initialized and assign a check hour. Perform as a task to update the local database 
+		from twitter server, including campaign data and summary data. Set non-online-exist campaigns to 'dead'.
+		Create non-local-but-online-exist campaigns and set to 'alive'.
+	"""
 
 	twitter_session = None
 	hour_start = None
@@ -27,14 +31,25 @@ class LocalUpdateTask(TwitterMonitorTask):
 		self.hour_start = hour_start
 
 	def perform(self):
-		"""invoke self.do() until success: return 0"""
-		
+		"""invoke :func:`Lib.LocalUpdateTask.LocalUpdateTask.do()` until success. 
+			Success means the self.do() method returns 0
+			See abstract method :func:`Lib.TwitterMonitorTask.TwitterMonitorTask.perform`.
+		"""
 		while self.do():
 			logging.info('@%s Local Update for %s failed. Retry'%(self.twitter_session.account.username, self.hour_start.__str__()))
 		logging.info('@%s Local Update for %s succeeded.'%(self.twitter_session.account.username, self.hour_start.__str__()))
 
 	def do(self):
-		"""return negative if fail, return 0 if succeed"""
+		"""return negative if fail, return 0 if succeed
+			Calls following self methods in order. If any one of them failed, 
+			return failed code immediately.
+			:func:`Lib.LocalUpdateTask.LocalUpdateTask.get_local_list` > 
+			:func:`Lib.LocalUpdateTask.LocalUpdateTask.get_online_list` > 
+			:func:`Lib.LocalUpdateTask.LocalUpdateTask.update_summary` > 
+			:func:`Lib.LocalUpdateTask.LocalUpdateTask.remove_camp_local_no_online` > 
+			:func:`Lib.LocalUpdateTask.LocalUpdateTask.update_exist` > 
+			:func:`Lib.LocalUpdateTask.LocalUpdateTask.create_new` > 
+		"""
 		status = self.get_local_list()
 		if status != 0:
 			return status
@@ -56,11 +71,21 @@ class LocalUpdateTask(TwitterMonitorTask):
 		return 0
 
 	def get_local_list(self):
+		"""Set self.camp_local_list with the alive local campaign list 
+			by calling :func:`Lib.TwitterCampaign.TwitterCampaign.get_list`
+		"""
 		self.camp_local_list = TwitterCampaign.get_list(self.twitter_session.account.fi_id, local_status=LocalStatus.TitletoPK['Alive'])
 		return 0
 
 	def get_online_list(self):
-		"""not only this hour's list but also this hour's data"""
+		"""Set self.camp_online_list with the alive online campaign list. 
+			Not only this hour's list but also this hour's data.
+			Loop to fetch datas of each page. 
+			Max loop number is set in config.ini ['Monitor' - 'max_campaign_scan_pages'].
+			If there's no more pages the loop will break.
+			If the id is less than the minimum id in database, the loop will break, too.
+			The minimum if is found by calling :func:`Lib.CampaignHelper.find_min_id`.
+		"""
 		config = Config.get()
 		cursor = ''
 		self.camp_online_list = []
@@ -119,6 +144,8 @@ class LocalUpdateTask(TwitterMonitorTask):
 		return 0
 
 	def update_summary(self):
+		"""Update the summary based on self.camp_online_list.
+		"""
 		summary = TwitterSummary.get_last(self.twitter_session.account.fi_id)
 		summary.new_spend = 0
 		summary.new_engagements = 0
@@ -136,7 +163,8 @@ class LocalUpdateTask(TwitterMonitorTask):
 		return 0
 
 	def remove_camp_local_no_online(self):
-		"""self.camp_local_list should be modified so that there is no dead"""
+		"""self.camp_local_list is modified so that there is no dead
+		"""
 		online_id_list = [camp.id for camp in self.camp_online_list]
 		for camp in list(self.camp_local_list):
 			if camp.id not in online_id_list:
@@ -145,7 +173,9 @@ class LocalUpdateTask(TwitterMonitorTask):
 		return 0
 
 	def update_exist(self):
-		"""self.camp_online_list should be modified so that there is no exist"""
+		"""Update the datas of local-exist campaigns based on self.camp_online_list. 
+			self.camp_online_list is modified so that there is no exist
+		"""
 		camp_local_dict = {}
 		for camp in self.camp_local_list:
 			camp_local_dict[camp.id] = camp
@@ -157,6 +187,9 @@ class LocalUpdateTask(TwitterMonitorTask):
 		return 0
 
 	def create_new(self):
+		"""Create non-local-but-online-exist campaigns and set to 'alive' 
+			by calling :func:`CampaignHelper.create`.
+		"""
 		for camp in self.camp_online_list:
 			CampaignHelper.create(camp)
 		return 0

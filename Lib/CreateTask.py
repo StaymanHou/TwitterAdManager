@@ -4,7 +4,10 @@ import CampaignHelper
 import re
 
 class CreateTask(TwitterMonitorTask):
-	"""docstring for CreateTask"""
+	"""This task will hold a reference of a :class:`Lib.TwitterSession.TwitterSession` 
+		while initialized. Perform as a task to create a 'create_pending task' onto twitter server, 
+		and update the localstatus to 'alive'(or 'create_fail' if failed).
+	"""
 
 	twitter_session = None
 	camp = None
@@ -15,6 +18,10 @@ class CreateTask(TwitterMonitorTask):
 		self.camp = camp
 
 	def perform(self):
+		"""Perform creating a 'create_pending task' onto twitter server, 
+			and updating the localstatus to 'alive'(or 'create_fail' if failed).
+			See abstract method :func:`Lib.TwitterMonitorTask.TwitterMonitorTask.perform`.
+		"""
 		url = self.twitter_session.get_root_url()+'/campaigns/create_promoted_account.json'
 		payload = CampaignHelper.get_create_payload(self.camp, self.twitter_session)
 		flag_success = True
