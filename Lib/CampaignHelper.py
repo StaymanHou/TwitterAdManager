@@ -4,8 +4,11 @@ import Config
 import pytz
 import TwitterAdAnalyzer
 import TwitterAdGenerator
+from TwitterCampaign import TwitterCampaign
 
 def get_poor_performance_camp_list(account):
+	if account.poor_zscore_threshold <= -99:
+		TwitterCampaign.get_list(account.fi_id, local_status=LocalStatus.TitletoPK['Alive'])
 	return TwitterAdAnalyzer.GetPoorPfmcCmpListIMPBased(account)
 
 def set_delete_pending(camp_list):
