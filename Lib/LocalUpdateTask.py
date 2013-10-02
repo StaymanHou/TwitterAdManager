@@ -160,7 +160,7 @@ class LocalUpdateTask(TwitterMonitorTask):
 		summary.period_start = self.hour_start
 		summary.period_end = self.hour_start+DateTimeHelper.onehour
 		summary.save()
-		self.twitter_session.account.spend(new_spend)
+		self.twitter_session.account.spend(summary.new_spend)
 		return 0
 
 	def remove_camp_local_no_online(self):
