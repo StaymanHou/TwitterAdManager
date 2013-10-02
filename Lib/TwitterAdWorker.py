@@ -2,7 +2,6 @@ import threading
 import logging
 import Config
 from time import sleep
-from MultiTubeQueue import MultiTubeQueue
 import SessionHelper
 import TaskHelper
 

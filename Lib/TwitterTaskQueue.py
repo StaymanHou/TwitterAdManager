@@ -3,7 +3,7 @@ from CreateTask import CreateTask
 from DeleteTask import DeleteTask
 import logging
 
-class TwitterTaskQueue(object):
+class TwitterTaskQueue(MultiTubeQueue):
 	"""docstring for TwitterTaskQueue"""
 
 	in_queue_camp_pk_list = []
