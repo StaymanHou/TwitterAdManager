@@ -180,6 +180,7 @@ COUNTRY_ID_DICT = {'afghanistan': '9ac7aa903ba29bd1',
                    'venezuela': '043383f8b2b79918',
                    'vietnam': '2371490f9d073edc',
                    'zambia': '5e8d90e3eaa45d69'}
+"""Country id dictionary"""
 
 INTEREST_ID_DICT = {'biographies and memoirs': '1001',
                     'business and finance': '1002',
@@ -540,3 +541,4 @@ INTEREST_ID_DICT = {'biographies and memoirs': '1001',
                     'pharmacy': '25006',
                     'allergies': '25007',
                     'health news and general info': '25008'}
+"""Interest id dictionary"""

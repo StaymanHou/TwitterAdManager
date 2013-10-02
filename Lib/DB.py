@@ -2,7 +2,14 @@ import Config
 import MySQLdb
 
 class DB(object):
-	"""docstring for DB"""
+	"""DB object. Responsible for communicating with the database in 
+		the entire program.
+		Usage:
+
+			>>> db = DB()
+			>>> cur = db.execute('SELECT * FROM Accounts WHERE 1')
+			>>> ...
+	"""
 
 	host = ''
 	username = ''
@@ -27,9 +34,16 @@ class DB(object):
 			self.connect.close()
 
 	def get_connect(self):
+		"""Return the db connect.
+		"""
 		return self.connect
 
 	def execute(self, exetuple):
+		"""Return the cursor which returned after the execution of the exetuple
+			\n..note::
+			\n\tThe exetuple should be something like this:
+			\n\t(('MySQL query here where %s = %s'),('id',1))
+		"""
 		cur = self.connect.cursor(MySQLdb.cursors.DictCursor)
 		try:
 			cur.execute(*exetuple)

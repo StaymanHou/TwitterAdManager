@@ -1,9 +1,18 @@
+"""This is the helper for :class:`Lib.Task.Task`. 
+	Dealing with the operations related to Tasks.
+"""
+
 from Task import Task
 from TaskFactory import TaskFactory
 import DateTimeHelper
 from datetime import datetime, timedelta
 
 def update_taskqueue(task_queue, twitter_sessions):
+	"""Update the task_queue. In following order:
+		\n\t:func:`Lib.TaskFactory.TaskFactory.get_delete_tasks`
+		\n\t:func:`Lib.TaskFactory.TaskFactory.get_create_tasks`
+		\n\tThen, if it is another hour, :func:`Lib.TaskFactory.TaskFactory.get_local_update_task`
+	"""
 	for twitter_session in twitter_sessions:
 		# initialize taskfactory
 		factory = TaskFactory(twitter_session)

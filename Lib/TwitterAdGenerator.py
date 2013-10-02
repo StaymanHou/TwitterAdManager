@@ -1,3 +1,5 @@
+"""This is the helper for generating campaigns for a given account."""
+
 from MyDict import COUNTRY_ID_DICT,INTEREST_ID_DICT
 from MyFunction import Username2Userid, file2list, randpick
 from TwitterCampaign import TwitterCampaign
@@ -11,6 +13,29 @@ intst_list_name = 'intst_list.txt'
 cntry_list_name = 'cntry_list.txt'
 
 def crtpd2refillcmp(account, generate_num):
+    """Generate CreatePending campaigns for the given account.
+        It uses :func:`Lib.MyFunction.file2list` to parse three 
+        candidate files which is named after the username of the account.
+        \nFor example: if you have a account with username 'blar'. It will looking for the following files:
+        \n\tlist_files/blar_user_list.txt
+        \n\tlist_files/blar_intst_list.txt
+        \n\tlist_files/blar_cntry_list.txt
+        \n\tlist_files/common_user_list.txt
+        \n\tlist_files/common_intst_list.txt
+        \n\tlist_files/common_cntry_list.txt\n
+        With the xxxx_private_weight, the program will get a certain weight from private and common.
+        \nFor example: your user_private_weight is 0.6. Then, the portion from each file is shown:
+        (assuming that you wanna 50 users)
+        \n\tblar_user_list.txt = 30 | common_user_list.txt = 20
+        \n
+        It calls :func:`Lib.MyFunction.Username2Userid` to convert username to user id.
+        It uses :attr:`Lib.MyDict.INTEREST_ID_DICT` to convert interest name to interest id.
+        It uses :attr:`Lib.MyDict.COUNTRY_ID_DICT` to convert country name to country id.
+
+        :param account: Specify the account.
+        :param generate_num: Specify the number of campaigns to generate.
+        :returns: The number of campaigns which are generated.
+    """
     if generate_num<=0: return None
     prefix = '%s_'%account.username
     account.user_private_weight = min(1,max(0,account.user_private_weight))

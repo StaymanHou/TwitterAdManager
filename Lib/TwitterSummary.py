@@ -1,7 +1,10 @@
 from DB import DB
 
 class TwitterSummary(object):
-    """docstring for TwitterSummary"""
+    """A Twitter Summary object. Contains fi_id, data and etc. 
+        It is corresponding to TwitterAccount through :attr:`fi_id`.
+        It uses :class:`Lib.DB.DB`.
+    """
 
     pk = 0
     fi_id = None
@@ -18,6 +21,8 @@ class TwitterSummary(object):
         super(TwitterSummary, self).__init__()
 
     def get_last(fi_id):
+        """Return the latest Summary object of the give fi_id account.
+        """
         db = DB()
         query_tuple = ("SELECT * FROM Summaries WHERE FI_ID=%s ORDER BY PK DESC LIMIT 1",fi_id)
         cur = db.execute(query_tuple)
@@ -38,6 +43,8 @@ class TwitterSummary(object):
     get_last = staticmethod(get_last)
 
     def save(self):
+        """INSERT the new Summary.
+        """
         db = DB()
         query_tuple = ("INSERT INTO "\
                 "Summaries(FI_ID, PERIOD_START, PERIOD_END, "\

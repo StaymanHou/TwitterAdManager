@@ -5,7 +5,25 @@ import logging
 import re
 
 class TwitterSession(object):
-    """docstring for TwitterSession"""
+    """A Twitter Session object. Contains a :class:`Lib.TwitterAccount.TwitterAccount` object 
+        and a :class:`requests.session` object. It also maintains auth_token and root_url 
+        after login. :attr:`is_login` holds the status of the session whether it's login or not.
+        You can use it just as a :class:`requests.session`.
+
+            >>> ts = TwitterSession(twitterAccount)
+            >>> url = ...
+            >>> r = ts.get(url)
+            >>> payload = {...}
+            >>> r = ts.post(url, payload)
+        
+        It will guarantee to login the twitter account before :func:`get()` 
+        and :func:`post()`. So you do not have to call 
+        :func:`Lib.TwitterSession.TwitterSession.login`. You can get the auth_token
+        and the root_url by calling :func:`Lib.TwitterSession.TwitterSession.get_auth_token` 
+        and :func:`Lib.TwitterSession.TwitterSession.get_root_url`. They will alse guarantee the login.
+        **Do not** try to access auth_token and root_url directly. It will be a empty 
+        string before login.
+    """
 
     account = None
     session = None
@@ -27,25 +45,40 @@ class TwitterSession(object):
         self.load_interval = config.getint('General', 'load_interval')
 
     def get(self, url, **kwargs):
+        """Commit a get requests with :attr:`self.session`.
+            It will guarantee to login first.
+        """
         self.login()
         return self.session.get(url, **kwargs)
 
     def post(self, url, **kwargs):
+        """Commit a post requests with :attr:`self.session`.
+            It will guarantee to login first.
+        """
         self.login()
         return self.session.post(url, **kwargs)
 
     def get_root_url(self):
+        """Return the :attr:`self.root_url`.
+            It will guarantee to login first.
+        """
         self.login()
         return self.root_url
 
     def get_auth_token(self):
+        """Return the :attr:`self.auth_token`.
+            It will guarantee to login first.
+        """
         self.login()
         return self.auth_token
 
     def login(self):
-        """infinite loop until successful login.
-           Please invoke this method at the begining of other method
-           to make sure the login status
+        """Reset the :attr:`self.session` and use the session to login
+            Infinite loop with an increasing retry waiting time 
+            until successful login.
+            It calls :func:`Lib.TwitterSession.TwitterSession.commit_login` to commit login.
+            Please invoke this method at the begining of other method
+            to make sure the login status.
         """
         while not self.is_login:
             self.session = requests.Session()
@@ -62,7 +95,9 @@ class TwitterSession(object):
             sleep(self.waiting_time)
         
     def commit_login(self):
-        """return 0 if success, otherwise return none zero"""
+        """Return 0 if success, otherwise return none zero. Commit login 
+            and perform the behavior.
+        """
         # visit login page and get authenticity_token
         url = 'https://ads.twitter.com/login'
         try:

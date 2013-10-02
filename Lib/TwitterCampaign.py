@@ -2,7 +2,11 @@ import json
 from DB import DB
 
 class TwitterCampaign(object):
-    """docstring for TwitterCampaign"""
+    """A Twitter Campaign object. Contains id, name,
+        status, data and etc. It uses :class:`Lib.DB.DB`.
+        \n..note::
+        \n\tself.data is stored as a JSON object in database
+    """
 
     pk = 0
     id = 0
@@ -49,6 +53,9 @@ class TwitterCampaign(object):
         self.accelerated_delivery = 1
 
     def get_alive_createpending_num(fi_id):
+        """Return the number of the Campaigns of the account which are alive or 
+            create_pending.
+        """
         db = DB()
         query_tuple = ("SELECT COUNT(*) AS COUNT FROM Campaigns WHERE (LOCAL_STATUS = 2 OR LOCAL_STATUS = 3) AND FI_ID=%s",fi_id)
         cur = db.execute(query_tuple)
@@ -59,6 +66,9 @@ class TwitterCampaign(object):
     get_alive_createpending_num = staticmethod(get_alive_createpending_num)
 
     def get_list(fi_id, local_status=None):
+        """Return a list of :class:`Lib.TwitterCampaign.TwitterCampaign` of a give fi_id.
+            local_status can be specified. 
+        """
         db = DB()
         query_tuple = None
         if local_status is None:
@@ -95,6 +105,10 @@ class TwitterCampaign(object):
     get_list = staticmethod(get_list)
 
     def save(self):
+        """Save the campaign to database.
+            If it has non-zeor :attr:`pk`, it will do UPDATE.
+            Otherwise, do INSERT.
+        """
         db = DB()
         query_tuple = None
         if self.pk == 0:

@@ -1,7 +1,9 @@
 from DB import DB
 
 class TwitterAccount(object):
-	"""docstring for TwitterAccount"""
+	"""A Twitter Account object. Contains fi_id, username,
+		password, status, data and etc. It uses :class:`Lib.DB.DB`.
+	"""
 
 	pk = 0
 	fi_id = 0
@@ -39,6 +41,9 @@ class TwitterAccount(object):
 		super(TwitterAccount, self).__init__()
 
 	def get_list(active = True):
+		"""Return a list of accounts.By default, only active accounts 
+			will be returned.
+		"""
 		db = DB()
 		cur = db.execute(("SELECT *, DES_DECRYPT(`PSWD`,%s) AS DEPSWD FROM `Accounts` WHERE `ACTIVE`=%s", (db.key, int(active))))
 		acc_list = []
@@ -82,6 +87,9 @@ class TwitterAccount(object):
 	get_list = staticmethod(get_list)
 
 	def set_monitor_finished_hour(self, new_monitor_finished_hour):
+		"""Set the monitor_finished_hour field of the account 
+			to the given new_monitor_finished_hour.
+		"""
 		# no permission to create
 		if self.fi_id == 0:
 			return -1
@@ -93,6 +101,9 @@ class TwitterAccount(object):
 		cur = db.execute(query_tuple)
 
 	def set_controller_finished_hour(self, new_controller_finished_hour):
+		"""Set the controller_finished_hour field of the account
+			to the given new_controller_finished_hour.
+		"""
 		# no permission to create
 		if self.fi_id == 0:
 			return -1
@@ -104,6 +115,10 @@ class TwitterAccount(object):
 		cur = db.execute(query_tuple)
 
 	def spend(self, new_spend):
+		"""Spend money from the acc_budget_remain of the account.
+			And pause the account if the acc_budget_remain is lower than 
+			the budget_limit_threshold.
+		"""
 		db = DB()
 		self.acc_budget_remain -= new_spend
 		query_tuple = ("UPDATE Accounts SET ACC_BUDGET_REMAIN=%s WHERE FI_ID=%s",
@@ -113,6 +128,11 @@ class TwitterAccount(object):
 			self.pause()
 
 	def pause(self):
+		"""Pause the account. It actually does the following instructions to pause.
+			Set the max_campaign_num of the account to 0.
+			Set the create_pending Campaigns of the account to create_fail.
+			Set the alive Campaigns of the account to delete_pending.
+		"""
 		db = DB()
 		cur = db.execute(("UPDATE `Accounts` SET `MAX_CAMPAIGN_NUM`=0 WHERE `FI_ID`=%s",(self.fi_id)))
 		cur = db.execute(("UPDATE `Campaigns` SET `LOCAL_STATUS`=5 WHERE `FI_ID`=%s AND `LOCAL_STATUS`=3",(self.fi_id)))

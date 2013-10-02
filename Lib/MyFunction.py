@@ -1,6 +1,10 @@
+"""This is the helper for some general stuff."""
+
 import os
 
 def file2list(file_path,NoDup=True):
+    """Return a list converted from the given file_path, split by lines.
+    """
     mylst = []
     if not os.path.exists(file_path):
         open(file_path,'w')
@@ -18,10 +22,14 @@ def file2list(file_path,NoDup=True):
     return mylst
 
 def randpick(pick_num,orig_list):
+    """Return a list of items randomly from a list.
+    """
     from random import sample
     return sample(orig_list, pick_num)
 
 def Username2Userid(l_username):
+    """Return a int indicating the id of the l_username.
+    """
     import requests
     import re
     import bsddb

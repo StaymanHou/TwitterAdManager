@@ -1,7 +1,14 @@
+"""This is the helper for :class:`Lib.TwitterSession.TwitterSession`. 
+	Dealing with the operations related to TwitterSession.
+"""
+
 from TwitterAccount import TwitterAccount
 from TwitterSession import TwitterSession
 
 def update_sessions(twitter_sessions, task_queue):
+	"""Update the twitter_sessions from database.
+		And renew the tubes in the task_queue.
+	"""
 	acc_list = TwitterAccount.get_list()
 	acc_list_pk_list = [acc.pk for acc in acc_list]
 	twitter_sessions_acc_pk_list = [ses.account.pk for ses in twitter_sessions]

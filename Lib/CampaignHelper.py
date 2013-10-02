@@ -1,3 +1,7 @@
+"""This is the helper for :class:`Lib.TwitterCampaign.TwitterCampaign`. 
+	Dealing with the operations related to TwitterCampaign.
+"""
+
 from LocalStatus import LocalStatus
 from datetime import datetime
 import Config
@@ -7,25 +11,46 @@ import TwitterAdGenerator
 from TwitterCampaign import TwitterCampaign
 
 def get_poor_performance_camp_list(account):
+	"""Return a list of all alive TwitterCampaigns of the account if 
+		poor_zscore_threshold <= -99.
+		Otherwise, return the result of :func:`Lib.TwitterAdAnalyzer.TwitterAdAnalyzer.GetPoorPfmcCmpListIMPBased` call.
+	"""
 	if account.poor_zscore_threshold <= -99:
 		TwitterCampaign.get_list(account.fi_id, local_status=LocalStatus.TitletoPK['Alive'])
 	return TwitterAdAnalyzer.GetPoorPfmcCmpListIMPBased(account)
 
 def set_delete_pending(camp_list):
+	"""Set the campaigns in the camp_list into 'deletepending'.
+	"""
 	for camp in camp_list:
 		camp.local_status = LocalStatus.TitletoPK['DeletePending']
 		camp.save()
 
 def generate_createpending_camp(account, generate_num):
+	"""Generate certain number of new campaigns and put into 'createpending'.
+		Calls :func:`Lib.TwitterAdGenerator.TwitterAdGenerator.crtpd2refillcmp`.
+	"""
 	TwitterAdGenerator.crtpd2refillcmp(account, generate_num)
 
 def kill(camp):
+	"""Kill the given campaign. Set it into dead, active = False, and end_time = now.
+	"""
 	camp.local_status = LocalStatus.TitletoPK['Dead']
 	camp.end_time = datetime.now()
 	camp.active = False
 	camp.save()
 
 def update(campl, campo):
+	"""Update the data of an local campaign with an online campaign object.
+		\n..note::
+		\n\tThe online campaign object is slitely diff. It's data attribute 
+		only holds the value of a certain hour. Not a list.
+
+		>>> campo.data = {'spend': 1.23,
+		>>> 			  'impressions': 1000,
+		>>>				  'engagements': 123}
+
+	"""
 	campl.data['spend'].append(campo.data['spend'])
 	campl.data['total_spend'] += campo.data['spend']
 	campl.data['impressions'].append(campo.data['impressions'])
@@ -35,6 +60,16 @@ def update(campl, campo):
 	campl.save()
 
 def create(campo):
+	"""Create a new campaign with an online campaign object.
+		\n..note::
+		\n\tThe online campaign object is slitely diff. It's data attribute 
+		only holds the value of a certain hour. Not a list.
+
+		>>> campo.data = {'spend': 1.23,
+		>>> 			  'impressions': 1000,
+		>>>				  'engagements': 123}
+
+	"""
 	campo.data['total_spend'] = campo.data['spend']
 	campo.data['spend'] = [campo.data['spend']]
 	campo.data['total_impressions'] = campo.data['impressions']
@@ -44,6 +79,9 @@ def create(campo):
 	campo.save()
 
 def find_min_id(camp_list):
+	"""Return the min id among all ids of alive campaigns in this camp_list.
+		Return 0 if there's no camp in the list
+	"""
 	if len(camp_list) == 0:
 		return 0
 	min_id = camp_list[0].id
@@ -53,6 +91,9 @@ def find_min_id(camp_list):
 	return min_id
 
 def get_delete_payload(camp, twitter_session):
+	"""Return a delete payload out of a campaign and a twitter_session 
+		for a twitter delete request.
+	"""
 	payload = {'utf8': u'\u2713',
 			   'user': twitter_session.account.username,
 			   'campaign_id': str(camp.id),
@@ -61,6 +102,9 @@ def get_delete_payload(camp, twitter_session):
 	return payload
 
 def get_create_payload(camp, twitter_session):
+	"""Return a create payload out of a campaign and a twitter_session 
+		for a twitter create request.
+	"""
 	config = Config.get()
 	local_tz = pytz.timezone(config.get('General', 'local_time_zone'))
 	sf_tz = pytz.timezone('America/Los_Angeles')
@@ -95,12 +139,16 @@ def get_create_payload(camp, twitter_session):
 	return payload
 
 def set_campaign_deleted(camp):
+	"""Set a camp into dead
+	"""
 	camp.local_status = LocalStatus.TitletoPK['Dead']
 	camp.active = False
 	camp.end_time = datetime.now()
 	camp.save()
 
 def set_campaign_delete_fail(camp):
+	"""Set a camp into deletefail
+	"""
 	camp.id = 0
 	camp.local_status = LocalStatus.TitletoPK['DeleteFail']
 	camp.active = False
@@ -108,6 +156,8 @@ def set_campaign_delete_fail(camp):
 	camp.save()
 
 def set_campaign_created(camp, new_id):
+	"""Set a camp into alive
+	"""
 	camp.id = new_id
 	camp.local_status = LocalStatus.TitletoPK['Alive']
 	camp.active = True
@@ -115,6 +165,8 @@ def set_campaign_created(camp, new_id):
 	camp.save()
 
 def set_campaign_create_fail(camp):
+	"""Set a camp into createfail
+	"""
 	camp.local_status = LocalStatus.TitletoPK['CreateFail']
 	camp.active = False
 	camp.start_time = datetime.now()
