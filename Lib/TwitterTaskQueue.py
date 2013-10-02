@@ -4,7 +4,10 @@ from DeleteTask import DeleteTask
 import logging
 
 class TwitterTaskQueue(MultiTubeQueue):
-	"""docstring for TwitterTaskQueue"""
+	"""Specific Queue for orginizing twitter tasks. 
+		It keeps track of task.camp pks within the queue, so that 
+		each campaign will only be involve in one task simultaneously.
+	"""
 
 	in_queue_camp_pk_list = []
 
@@ -13,8 +16,11 @@ class TwitterTaskQueue(MultiTubeQueue):
 		self.in_queue_camp_pk_list = []
 
 	def put(self, tube_name, incoming_item):
+		"""Check the pk of incoming_item.
+		"""
 		if isinstance(incoming_item, CreateTask) or isinstance(incoming_item, DeleteTask):
 			if incoming_item.camp.pk in self.in_queue_camp_pk_list: return
+			self.in_queue_camp_pk_list.append(incoming_item.camp.pk)
 		super(TwitterTaskQueue, self).put(tube_name, incoming_item)
 
 	def open(self, tube_name, incoming_item):
