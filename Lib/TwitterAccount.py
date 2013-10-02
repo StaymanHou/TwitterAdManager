@@ -122,7 +122,7 @@ class TwitterAccount(object):
 		db = DB()
 		self.acc_budget_remain -= new_spend
 		query_tuple = ("UPDATE Accounts SET ACC_BUDGET_REMAIN=%s WHERE FI_ID=%s",
-				(new_spend, self.fi_id))
+				(self.acc_budget_remain, self.fi_id))
 		cur = db.execute(query_tuple)
 		if self.acc_budget_remain < self.budget_limit_threshold:
 			self.pause()
