@@ -1,0 +1,5 @@
+TaskFactory
+===========
+
+.. autoclass:: Lib.TaskFactory.TaskFactory
+   :members:

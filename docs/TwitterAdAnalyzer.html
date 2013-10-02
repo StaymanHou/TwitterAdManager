@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>TwitterAdAnalyzer &mdash; TwitterAdManager 3.0a documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.0a',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="TwitterAdManager 3.0a documentation" href="index.html" />
+    <link rel="next" title="TwitterAdGenerator" href="TwitterAdGenerator.html" />
+    <link rel="prev" title="DateTimeHelper" href="DateTimeHelper.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="TwitterAdGenerator.html" title="TwitterAdGenerator"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="DateTimeHelper.html" title="DateTimeHelper"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">TwitterAdManager 3.0a documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-Lib.TwitterAdAnalyzer">
+<span id="twitteradanalyzer"></span><h1>TwitterAdAnalyzer<a class="headerlink" href="#module-Lib.TwitterAdAnalyzer" title="Permalink to this headline">¶</a></h1>
+<p>This is the helper for analyzing campaign performances of a given account.</p>
+<dl class="function">
+<dt id="Lib.TwitterAdAnalyzer.GetIMPDistributionOneDay">
+<tt class="descclassname">Lib.TwitterAdAnalyzer.</tt><tt class="descname">GetIMPDistributionOneDay</tt><big>(</big><em>fi_id</em>, <em>bid</em>, <em>time_limit=0</em>, <em>record_limit=10000</em><big>)</big><a class="headerlink" href="#Lib.TwitterAdAnalyzer.GetIMPDistributionOneDay" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function calculates the distribution of the impressions versus one day.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>fi_id</strong> &#8211; To specify the account.</li>
+<li><strong>bid</strong> &#8211; The bid price should be given.</li>
+<li><strong>time_limit</strong> &#8211; Only count the data within the time_limit. If 0, no limit.</li>
+<li><strong>record_limit</strong> &#8211; Only this amount of campaigns will be take into account.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The average and standard deviation of the impressions of certain campaigns.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Lib.TwitterAdAnalyzer.GetPoorPfmcCmpListIMPBased">
+<tt class="descclassname">Lib.TwitterAdAnalyzer.</tt><tt class="descname">GetPoorPfmcCmpListIMPBased</tt><big>(</big><em>account</em><big>)</big><a class="headerlink" href="#Lib.TwitterAdAnalyzer.GetPoorPfmcCmpListIMPBased" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the poor performance campaign list based on imporession.
+It calls <a class="reference internal" href="#Lib.TwitterAdAnalyzer.GetIMPDistributionOneDay" title="Lib.TwitterAdAnalyzer.GetIMPDistributionOneDay"><tt class="xref py py-func docutils literal"><span class="pre">Lib.TwitterAdAnalyzer.GetIMPDistributionOneDay()</span></tt></a> for distribution of the data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>account</strong> &#8211; To specify the account.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A list of <a class="reference internal" href="TwitterCampaign.html#Lib.TwitterCampaign.TwitterCampaign" title="Lib.TwitterCampaign.TwitterCampaign"><tt class="xref py py-class docutils literal"><span class="pre">Lib.TwitterCampaign.TwitterCampaign</span></tt></a> whose performance are poor based on static analysis.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="DateTimeHelper.html"
+                        title="previous chapter">DateTimeHelper</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="TwitterAdGenerator.html"
+                        title="next chapter">TwitterAdGenerator</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/TwitterAdAnalyzer.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="TwitterAdGenerator.html" title="TwitterAdGenerator"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="DateTimeHelper.html" title="DateTimeHelper"
+             >previous</a> |</li>
+        <li><a href="index.html">TwitterAdManager 3.0a documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Stayman Hou.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b2.
+    </div>
+  </body>
+</html>

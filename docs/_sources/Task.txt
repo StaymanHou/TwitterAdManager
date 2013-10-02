@@ -1,0 +1,6 @@
+Task
+====
+
+.. autoclass:: Lib.Task.Task
+   :members:
+   :inherited-members:

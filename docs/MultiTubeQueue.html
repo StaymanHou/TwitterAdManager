@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>MultiTubeQueue &mdash; TwitterAdManager 3.0a documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.0a',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="TwitterAdManager 3.0a documentation" href="index.html" />
+    <link rel="next" title="TwitterSession" href="TwitterSession.html" />
+    <link rel="prev" title="TwitterTaskQueue" href="TwitterTaskQueue.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="TwitterSession.html" title="TwitterSession"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="TwitterTaskQueue.html" title="TwitterTaskQueue"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">TwitterAdManager 3.0a documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="multitubequeue">
+<h1>MultiTubeQueue<a class="headerlink" href="#multitubequeue" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="Lib.MultiTubeQueue.MultiTubeQueue">
+<em class="property">class </em><tt class="descclassname">Lib.MultiTubeQueue.</tt><tt class="descname">MultiTubeQueue</tt><a class="headerlink" href="#Lib.MultiTubeQueue.MultiTubeQueue" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a collection of queues. The queue inside this class is called tube.
+Each tube has a specific name. Tubes can be added and removed by its name 
+by calling <a class="reference internal" href="#Lib.MultiTubeQueue.MultiTubeQueue.add_tube" title="Lib.MultiTubeQueue.MultiTubeQueue.add_tube"><tt class="xref py py-func docutils literal"><span class="pre">Lib.MultiTubeQueue.MultiTubeQueue.add_tube()</span></tt></a> and 
+<a class="reference internal" href="#Lib.MultiTubeQueue.MultiTubeQueue.remove_tube" title="Lib.MultiTubeQueue.MultiTubeQueue.remove_tube"><tt class="xref py py-func docutils literal"><span class="pre">Lib.MultiTubeQueue.MultiTubeQueue.remove_tube()</span></tt></a>.
+For producer, it can put items to specified tube by calling 
+<a class="reference internal" href="#Lib.MultiTubeQueue.MultiTubeQueue.put" title="Lib.MultiTubeQueue.MultiTubeQueue.put"><tt class="xref py py-func docutils literal"><span class="pre">Lib.MultiTubeQueue.MultiTubeQueue.put()</span></tt></a>.
+For consumer, it is an integral queue, can get items from it by calling 
+<a class="reference internal" href="#Lib.MultiTubeQueue.MultiTubeQueue.get" title="Lib.MultiTubeQueue.MultiTubeQueue.get"><tt class="xref py py-func docutils literal"><span class="pre">Lib.MultiTubeQueue.MultiTubeQueue.get()</span></tt></a>. Upon get() is called, the corresponding 
+tube will be closed, and return both the name of the tube and the item.
+You have to open the tube to make getable again by calling 
+<a class="reference internal" href="#Lib.MultiTubeQueue.MultiTubeQueue.open" title="Lib.MultiTubeQueue.MultiTubeQueue.open"><tt class="xref py py-func docutils literal"><span class="pre">Lib.MultiTubeQueue.MultiTubeQueue.open()</span></tt></a>.
+<strong>Always</strong> check <a class="reference internal" href="#Lib.MultiTubeQueue.MultiTubeQueue.no_get" title="Lib.MultiTubeQueue.MultiTubeQueue.no_get"><tt class="xref py py-func docutils literal"><span class="pre">Lib.MultiTubeQueue.MultiTubeQueue.no_get()</span></tt></a> before get().</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mtq</span> <span class="o">=</span> <span class="n">MultiTubeQueue</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="o">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="ow">not</span> <span class="n">mtq</span><span class="o">.</span><span class="n">no_get</span><span class="p">():</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">tubename</span><span class="p">,</span> <span class="n">item</span> <span class="o">=</span> <span class="n">mtq</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>MultiTubeQueue will keep circling the tubes, and give out the item which is first getable.</p>
+<dl class="method">
+<dt id="Lib.MultiTubeQueue.MultiTubeQueue.add_tube">
+<tt class="descname">add_tube</tt><big>(</big><em>tube_name</em><big>)</big><a class="headerlink" href="#Lib.MultiTubeQueue.MultiTubeQueue.add_tube" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a tube with the tube_name provided into this queue. 
+Initially, the status of the new tube is open.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Lib.MultiTubeQueue.MultiTubeQueue.close">
+<tt class="descname">close</tt><big>(</big><em>tube_name</em><big>)</big><a class="headerlink" href="#Lib.MultiTubeQueue.MultiTubeQueue.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close the tube with the given tube_name.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Lib.MultiTubeQueue.MultiTubeQueue.get">
+<tt class="descname">get</tt><big>(</big><big>)</big><a class="headerlink" href="#Lib.MultiTubeQueue.MultiTubeQueue.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get an item from the queue. The corresponding tube will be 
+closed after a item is got.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Lib.MultiTubeQueue.MultiTubeQueue.no_get">
+<tt class="descname">no_get</tt><big>(</big><big>)</big><a class="headerlink" href="#Lib.MultiTubeQueue.MultiTubeQueue.no_get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True if there is something getable in any tube. False 
+if there&#8217;s non.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Lib.MultiTubeQueue.MultiTubeQueue.open">
+<tt class="descname">open</tt><big>(</big><em>tube_name</em><big>)</big><a class="headerlink" href="#Lib.MultiTubeQueue.MultiTubeQueue.open" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open the tube with the given tube_name.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Lib.MultiTubeQueue.MultiTubeQueue.put">
+<tt class="descname">put</tt><big>(</big><em>tube_name</em>, <em>incoming_item</em><big>)</big><a class="headerlink" href="#Lib.MultiTubeQueue.MultiTubeQueue.put" title="Permalink to this definition">¶</a></dt>
+<dd><p>Put an item into the tube with the given tube_name.
+If tube_name is not exist, Exception will be raised.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Lib.MultiTubeQueue.MultiTubeQueue.remove_tube">
+<tt class="descname">remove_tube</tt><big>(</big><em>tube_name</em><big>)</big><a class="headerlink" href="#Lib.MultiTubeQueue.MultiTubeQueue.remove_tube" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove a tube with the given tube_name.
+The items in the tube will also be discarded.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="TwitterTaskQueue.html"
+                        title="previous chapter">TwitterTaskQueue</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="TwitterSession.html"
+                        title="next chapter">TwitterSession</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/MultiTubeQueue.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="TwitterSession.html" title="TwitterSession"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="TwitterTaskQueue.html" title="TwitterTaskQueue"
+             >previous</a> |</li>
+        <li><a href="index.html">TwitterAdManager 3.0a documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Stayman Hou.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b2.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,5 @@
+LocalStatus
+===========
+
+.. autoclass:: Lib.LocalStatus.LocalStatus
+   :members:

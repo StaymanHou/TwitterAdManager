@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>TwitterSession &mdash; TwitterAdManager 3.0a documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.0a',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="TwitterAdManager 3.0a documentation" href="index.html" />
+    <link rel="next" title="TwitterAccount" href="TwitterAccount.html" />
+    <link rel="prev" title="MultiTubeQueue" href="MultiTubeQueue.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="TwitterAccount.html" title="TwitterAccount"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="MultiTubeQueue.html" title="MultiTubeQueue"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">TwitterAdManager 3.0a documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="twittersession">
+<h1>TwitterSession<a class="headerlink" href="#twittersession" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="Lib.TwitterSession.TwitterSession">
+<em class="property">class </em><tt class="descclassname">Lib.TwitterSession.</tt><tt class="descname">TwitterSession</tt><big>(</big><em>account</em><big>)</big><a class="headerlink" href="#Lib.TwitterSession.TwitterSession" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Twitter Session object. Contains a <a class="reference internal" href="TwitterAccount.html#Lib.TwitterAccount.TwitterAccount" title="Lib.TwitterAccount.TwitterAccount"><tt class="xref py py-class docutils literal"><span class="pre">Lib.TwitterAccount.TwitterAccount</span></tt></a> object 
+and a <tt class="xref py py-class docutils literal"><span class="pre">requests.session</span></tt> object. It also maintains auth_token and root_url 
+after login. <tt class="xref py py-attr docutils literal"><span class="pre">is_login</span></tt> holds the status of the session whether it&#8217;s login or not.
+You can use it just as a <tt class="xref py py-class docutils literal"><span class="pre">requests.session</span></tt>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">ts</span> <span class="o">=</span> <span class="n">TwitterSession</span><span class="p">(</span><span class="n">twitterAccount</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">url</span> <span class="o">=</span> <span class="o">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>It will guarantee to login the twitter account before <tt class="xref py py-func docutils literal"><span class="pre">get()</span></tt> 
+and <tt class="xref py py-func docutils literal"><span class="pre">post()</span></tt>. So you do not have to call 
+<a class="reference internal" href="#Lib.TwitterSession.TwitterSession.login" title="Lib.TwitterSession.TwitterSession.login"><tt class="xref py py-func docutils literal"><span class="pre">Lib.TwitterSession.TwitterSession.login()</span></tt></a>. You can get the auth_token
+and the root_url by calling <a class="reference internal" href="#Lib.TwitterSession.TwitterSession.get_auth_token" title="Lib.TwitterSession.TwitterSession.get_auth_token"><tt class="xref py py-func docutils literal"><span class="pre">Lib.TwitterSession.TwitterSession.get_auth_token()</span></tt></a> 
+and <a class="reference internal" href="#Lib.TwitterSession.TwitterSession.get_root_url" title="Lib.TwitterSession.TwitterSession.get_root_url"><tt class="xref py py-func docutils literal"><span class="pre">Lib.TwitterSession.TwitterSession.get_root_url()</span></tt></a>. They will alse guarantee the login.
+<strong>Do not</strong> try to access auth_token and root_url directly. It will be a empty 
+string before login.</p>
+<dl class="method">
+<dt id="Lib.TwitterSession.TwitterSession.commit_login">
+<tt class="descname">commit_login</tt><big>(</big><big>)</big><a class="headerlink" href="#Lib.TwitterSession.TwitterSession.commit_login" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return 0 if success, otherwise return none zero. Commit login 
+and perform the behavior.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Lib.TwitterSession.TwitterSession.get">
+<tt class="descname">get</tt><big>(</big><em>url</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#Lib.TwitterSession.TwitterSession.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Commit a get requests with <tt class="xref py py-attr docutils literal"><span class="pre">self.session</span></tt>.
+It will guarantee to login first.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Lib.TwitterSession.TwitterSession.get_auth_token">
+<tt class="descname">get_auth_token</tt><big>(</big><big>)</big><a class="headerlink" href="#Lib.TwitterSession.TwitterSession.get_auth_token" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the <tt class="xref py py-attr docutils literal"><span class="pre">self.auth_token</span></tt>.
+It will guarantee to login first.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Lib.TwitterSession.TwitterSession.get_root_url">
+<tt class="descname">get_root_url</tt><big>(</big><big>)</big><a class="headerlink" href="#Lib.TwitterSession.TwitterSession.get_root_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the <tt class="xref py py-attr docutils literal"><span class="pre">self.root_url</span></tt>.
+It will guarantee to login first.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Lib.TwitterSession.TwitterSession.login">
+<tt class="descname">login</tt><big>(</big><big>)</big><a class="headerlink" href="#Lib.TwitterSession.TwitterSession.login" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset the <tt class="xref py py-attr docutils literal"><span class="pre">self.session</span></tt> and use the session to login
+Infinite loop with an increasing retry waiting time 
+until successful login.
+It calls <a class="reference internal" href="#Lib.TwitterSession.TwitterSession.commit_login" title="Lib.TwitterSession.TwitterSession.commit_login"><tt class="xref py py-func docutils literal"><span class="pre">Lib.TwitterSession.TwitterSession.commit_login()</span></tt></a> to commit login.
+Please invoke this method at the begining of other method
+to make sure the login status.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Lib.TwitterSession.TwitterSession.post">
+<tt class="descname">post</tt><big>(</big><em>url</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#Lib.TwitterSession.TwitterSession.post" title="Permalink to this definition">¶</a></dt>
+<dd><p>Commit a post requests with <tt class="xref py py-attr docutils literal"><span class="pre">self.session</span></tt>.
+It will guarantee to login first.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="MultiTubeQueue.html"
+                        title="previous chapter">MultiTubeQueue</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="TwitterAccount.html"
+                        title="next chapter">TwitterAccount</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/TwitterSession.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="TwitterAccount.html" title="TwitterAccount"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="MultiTubeQueue.html" title="MultiTubeQueue"
+             >previous</a> |</li>
+        <li><a href="index.html">TwitterAdManager 3.0a documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Stayman Hou.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b2.
+    </div>
+  </body>
+</html>

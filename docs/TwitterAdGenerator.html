@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>TwitterAdGenerator &mdash; TwitterAdManager 3.0a documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.0a',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="TwitterAdManager 3.0a documentation" href="index.html" />
+    <link rel="next" title="MyFunction" href="MyFunction.html" />
+    <link rel="prev" title="TwitterAdAnalyzer" href="TwitterAdAnalyzer.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="MyFunction.html" title="MyFunction"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="TwitterAdAnalyzer.html" title="TwitterAdAnalyzer"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">TwitterAdManager 3.0a documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-Lib.TwitterAdGenerator">
+<span id="twitteradgenerator"></span><h1>TwitterAdGenerator<a class="headerlink" href="#module-Lib.TwitterAdGenerator" title="Permalink to this headline">¶</a></h1>
+<p>This is the helper for generating campaigns for a given account.</p>
+<dl class="function">
+<dt id="Lib.TwitterAdGenerator.crtpd2refillcmp">
+<tt class="descclassname">Lib.TwitterAdGenerator.</tt><tt class="descname">crtpd2refillcmp</tt><big>(</big><em>account</em>, <em>generate_num</em><big>)</big><a class="headerlink" href="#Lib.TwitterAdGenerator.crtpd2refillcmp" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Generate CreatePending campaigns for the given account.</dt>
+<dd>It uses <a class="reference internal" href="MyFunction.html#Lib.MyFunction.file2list" title="Lib.MyFunction.file2list"><tt class="xref py py-func docutils literal"><span class="pre">Lib.MyFunction.file2list()</span></tt></a> to parse three 
+candidate files which is named after the username of the account.</dd>
+</dl>
+<p>For example: if you have a account with username &#8216;blar&#8217;. It will looking for the following files:</p>
+<blockquote>
+<div><p>list_files/blar_user_list.txt</p>
+<p>list_files/blar_intst_list.txt</p>
+<p>list_files/blar_cntry_list.txt</p>
+<p>list_files/common_user_list.txt</p>
+<p>list_files/common_intst_list.txt</p>
+<p>list_files/common_cntry_list.txt</p>
+<p>With the xxxx_private_weight, the program will get a certain weight from private and common.</p>
+</div></blockquote>
+<dl class="docutils">
+<dt>For example: your user_private_weight is 0.6. Then, the portion from each file is shown:</dt>
+<dd><p class="first">(assuming that you wanna 50 users)</p>
+<p>blar_user_list.txt = 30 | common_user_list.txt = 20</p>
+<p>It calls <a class="reference internal" href="MyFunction.html#Lib.MyFunction.Username2Userid" title="Lib.MyFunction.Username2Userid"><tt class="xref py py-func docutils literal"><span class="pre">Lib.MyFunction.Username2Userid()</span></tt></a> to convert username to user id.
+It uses <a class="reference internal" href="MyDict.html#Lib.MyDict.INTEREST_ID_DICT" title="Lib.MyDict.INTEREST_ID_DICT"><tt class="xref py py-attr docutils literal"><span class="pre">Lib.MyDict.INTEREST_ID_DICT</span></tt></a> to convert interest name to interest id.
+It uses <a class="reference internal" href="MyDict.html#Lib.MyDict.COUNTRY_ID_DICT" title="Lib.MyDict.COUNTRY_ID_DICT"><tt class="xref py py-attr docutils literal"><span class="pre">Lib.MyDict.COUNTRY_ID_DICT</span></tt></a> to convert country name to country id.</p>
+<table class="last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param account:</th><td class="field-body">Specify the account.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">param generate_num:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">Specify the number of campaigns to generate.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">returns:</th><td class="field-body">The number of campaigns which are generated.</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="TwitterAdAnalyzer.html"
+                        title="previous chapter">TwitterAdAnalyzer</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="MyFunction.html"
+                        title="next chapter">MyFunction</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/TwitterAdGenerator.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="MyFunction.html" title="MyFunction"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="TwitterAdAnalyzer.html" title="TwitterAdAnalyzer"
+             >previous</a> |</li>
+        <li><a href="index.html">TwitterAdManager 3.0a documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Stayman Hou.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b2.
+    </div>
+  </body>
+</html>

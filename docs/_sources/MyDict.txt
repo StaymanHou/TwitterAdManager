@@ -1,0 +1,5 @@
+MyDict
+======
+
+.. automodule:: Lib.MyDict
+   :members:

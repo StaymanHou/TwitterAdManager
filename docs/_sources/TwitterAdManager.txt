@@ -1,0 +1,5 @@
+TwitterAdManager
+================
+
+.. autoclass:: TwitterAdManager.TwitterAdManager
+   :members:

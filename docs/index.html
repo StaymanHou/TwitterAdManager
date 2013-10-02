@@ -1,0 +1,239 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Welcome to TwitterAdManager’s documentation! &mdash; TwitterAdManager 3.0a documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.0a',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="TwitterAdManager 3.0a documentation" href="#" />
+    <link rel="next" title="TwitterAdManager" href="TwitterAdManager.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="TwitterAdManager.html" title="TwitterAdManager"
+             accesskey="N">next</a> |</li>
+        <li><a href="#">TwitterAdManager 3.0a documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="welcome-to-twitteradmanager-s-documentation">
+<h1>Welcome to TwitterAdManager&#8217;s documentation!<a class="headerlink" href="#welcome-to-twitteradmanager-s-documentation" title="Permalink to this headline">¶</a></h1>
+<p>This is the detailed documentation of TwitterAdManager. It&#8217;s under the alpha release, so it&#8217;s unstable. You can find all the modules, classes in this project in the content below. I&#8217;m still working on it to fix bugs. If you want, you can <a class="reference external" href="mailto:hhyycc0418&#37;&#52;&#48;gmail&#46;com">write to me</a>.</p>
+<div class="section" id="twitteradmanager">
+<h2>1. TwitterAdManager<a class="headerlink" href="#twitteradmanager" title="Permalink to this headline">¶</a></h2>
+<p>class <a class="reference internal" href="TwitterAdManager.html#TwitterAdManager.TwitterAdManager" title="TwitterAdManager.TwitterAdManager"><tt class="xref py py-class docutils literal"><span class="pre">TwitterAdManager.TwitterAdManager</span></tt></a> is the top_level class in this project. To run the tool, simply initialize a TwitterAdManager object. Call <a class="reference internal" href="TwitterAdManager.html#TwitterAdManager.TwitterAdManager.start" title="TwitterAdManager.TwitterAdManager.start"><tt class="xref py py-meth docutils literal"><span class="pre">TwitterAdManager.TwitterAdManager.start()</span></tt></a> to start and <a class="reference internal" href="TwitterAdManager.html#TwitterAdManager.TwitterAdManager.join" title="TwitterAdManager.TwitterAdManager.join"><tt class="xref py py-meth docutils literal"><span class="pre">TwitterAdManager.TwitterAdManager.join()</span></tt></a> to wait.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">TAM</span> <span class="o">=</span> <span class="n">TwitterAdManager</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">TAM</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">TAM</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>see:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="TwitterAdManager.html">TwitterAdManager</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="processes">
+<h2>2. Processes<a class="headerlink" href="#processes" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="TwitterAdMonitor.html">TwitterAdMonitor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TwitterAdController.html">TwitterAdController</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="threads">
+<h2>3. Threads<a class="headerlink" href="#threads" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="TwitterAdForeman.html">TwitterAdWorker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TwitterAdWorker.html">TwitterAdForeman</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="classes">
+<h2>4. Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="TaskFactory.html">TaskFactory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CreateTask.html">CreateTask</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DeleteTask.html">DeleteTask</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LocalUpdateTask.html">LocalUpdateTask</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TwitterMonitorTask.html">TwitterMonitorTask</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Task.html">Task</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TwitterTaskQueue.html">TwitterTaskQueue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MultiTubeQueue.html">MultiTubeQueue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TwitterSession.html">TwitterSession</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="models">
+<h2>5. Models<a class="headerlink" href="#models" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="TwitterAccount.html">TwitterAccount</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TwitterCampaign.html">TwitterCampaign</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TwitterSummary.html">TwitterSummary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LocalStatus.html">LocalStatus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Gender.html">Gender</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DB.html">DB</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="helpers">
+<h2>6. Helpers<a class="headerlink" href="#helpers" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="TaskHelper.html">TaskHelper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CampaignHelper.html">CampaignHelper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SessionHelper.html">SessionHelper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DateTimeHelper.html">DateTimeHelper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TwitterAdAnalyzer.html">TwitterAdAnalyzer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TwitterAdGenerator.html">TwitterAdGenerator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MyFunction.html">MyFunction</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="singletons">
+<h2>7. Singletons<a class="headerlink" href="#singletons" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Config.html">Config</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="dictionary">
+<h2>8. Dictionary<a class="headerlink" href="#dictionary" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="MyDict.html">MyDict</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><em>Index</em></a></li>
+<li><a class="reference internal" href="py-modindex.html"><em>Module Index</em></a></li>
+<li><a class="reference internal" href="search.html"><em>Search Page</em></a></li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Welcome to TwitterAdManager&#8217;s documentation!</a><ul>
+<li><a class="reference internal" href="#twitteradmanager">1. TwitterAdManager</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#processes">2. Processes</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#threads">3. Threads</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#classes">4. Classes</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#models">5. Models</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#helpers">6. Helpers</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#singletons">7. Singletons</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#dictionary">8. Dictionary</a><ul>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+
+  <h4>Next topic</h4>
+  <p class="topless"><a href="TwitterAdManager.html"
+                        title="next chapter">TwitterAdManager</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="TwitterAdManager.html" title="TwitterAdManager"
+             >next</a> |</li>
+        <li><a href="#">TwitterAdManager 3.0a documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Stayman Hou.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b2.
+    </div>
+  </body>
+</html>

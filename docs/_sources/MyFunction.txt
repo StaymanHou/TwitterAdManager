@@ -1,0 +1,5 @@
+MyFunction
+==========
+
+.. automodule:: Lib.MyFunction
+   :members:

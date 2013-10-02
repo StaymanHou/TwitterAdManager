@@ -1,0 +1,5 @@
+MultiTubeQueue
+==============
+
+.. autoclass:: Lib.MultiTubeQueue.MultiTubeQueue
+   :members:

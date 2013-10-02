@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>CampaignHelper &mdash; TwitterAdManager 3.0a documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.0a',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="TwitterAdManager 3.0a documentation" href="index.html" />
+    <link rel="next" title="SessionHelper" href="SessionHelper.html" />
+    <link rel="prev" title="TaskHelper" href="TaskHelper.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="SessionHelper.html" title="SessionHelper"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="TaskHelper.html" title="TaskHelper"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">TwitterAdManager 3.0a documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-Lib.CampaignHelper">
+<span id="campaignhelper"></span><h1>CampaignHelper<a class="headerlink" href="#module-Lib.CampaignHelper" title="Permalink to this headline">¶</a></h1>
+<p>This is the helper for <a class="reference internal" href="TwitterCampaign.html#Lib.TwitterCampaign.TwitterCampaign" title="Lib.TwitterCampaign.TwitterCampaign"><tt class="xref py py-class docutils literal"><span class="pre">Lib.TwitterCampaign.TwitterCampaign</span></tt></a>. 
+Dealing with the operations related to TwitterCampaign.</p>
+<dl class="function">
+<dt id="Lib.CampaignHelper.create">
+<tt class="descclassname">Lib.CampaignHelper.</tt><tt class="descname">create</tt><big>(</big><em>campo</em><big>)</big><a class="headerlink" href="#Lib.CampaignHelper.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new campaign with an online campaign object.</p>
+<p>..note:</p>
+<div class="highlight-python"><pre>The online campaign object is slitely diff. It's data attribute 
+        only holds the value of a certain hour. Not a list.
+
+        &gt;&gt;&gt; campo.data = {'spend': 1.23,
+        &gt;&gt;&gt;                       'impressions': 1000,
+        &gt;&gt;&gt;                               'engagements': 123}</pre>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="Lib.CampaignHelper.find_min_id">
+<tt class="descclassname">Lib.CampaignHelper.</tt><tt class="descname">find_min_id</tt><big>(</big><em>camp_list</em><big>)</big><a class="headerlink" href="#Lib.CampaignHelper.find_min_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the min id among all ids of alive campaigns in this camp_list.
+Return 0 if there&#8217;s no camp in the list</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Lib.CampaignHelper.generate_createpending_camp">
+<tt class="descclassname">Lib.CampaignHelper.</tt><tt class="descname">generate_createpending_camp</tt><big>(</big><em>account</em>, <em>generate_num</em><big>)</big><a class="headerlink" href="#Lib.CampaignHelper.generate_createpending_camp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate certain number of new campaigns and put into &#8216;createpending&#8217;.
+Calls <tt class="xref py py-func docutils literal"><span class="pre">Lib.TwitterAdGenerator.TwitterAdGenerator.crtpd2refillcmp()</span></tt>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Lib.CampaignHelper.get_create_payload">
+<tt class="descclassname">Lib.CampaignHelper.</tt><tt class="descname">get_create_payload</tt><big>(</big><em>camp</em>, <em>twitter_session</em><big>)</big><a class="headerlink" href="#Lib.CampaignHelper.get_create_payload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a create payload out of a campaign and a twitter_session 
+for a twitter create request.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Lib.CampaignHelper.get_delete_payload">
+<tt class="descclassname">Lib.CampaignHelper.</tt><tt class="descname">get_delete_payload</tt><big>(</big><em>camp</em>, <em>twitter_session</em><big>)</big><a class="headerlink" href="#Lib.CampaignHelper.get_delete_payload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a delete payload out of a campaign and a twitter_session 
+for a twitter delete request.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Lib.CampaignHelper.get_poor_performance_camp_list">
+<tt class="descclassname">Lib.CampaignHelper.</tt><tt class="descname">get_poor_performance_camp_list</tt><big>(</big><em>account</em><big>)</big><a class="headerlink" href="#Lib.CampaignHelper.get_poor_performance_camp_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of all alive TwitterCampaigns of the account if 
+poor_zscore_threshold &lt;= -99.
+Otherwise, return the result of <tt class="xref py py-func docutils literal"><span class="pre">Lib.TwitterAdAnalyzer.TwitterAdAnalyzer.GetPoorPfmcCmpListIMPBased()</span></tt> call.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Lib.CampaignHelper.kill">
+<tt class="descclassname">Lib.CampaignHelper.</tt><tt class="descname">kill</tt><big>(</big><em>camp</em><big>)</big><a class="headerlink" href="#Lib.CampaignHelper.kill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kill the given campaign. Set it into dead, active = False, and end_time = now.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Lib.CampaignHelper.set_campaign_create_fail">
+<tt class="descclassname">Lib.CampaignHelper.</tt><tt class="descname">set_campaign_create_fail</tt><big>(</big><em>camp</em><big>)</big><a class="headerlink" href="#Lib.CampaignHelper.set_campaign_create_fail" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a camp into createfail</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Lib.CampaignHelper.set_campaign_created">
+<tt class="descclassname">Lib.CampaignHelper.</tt><tt class="descname">set_campaign_created</tt><big>(</big><em>camp</em>, <em>new_id</em><big>)</big><a class="headerlink" href="#Lib.CampaignHelper.set_campaign_created" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a camp into alive</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Lib.CampaignHelper.set_campaign_delete_fail">
+<tt class="descclassname">Lib.CampaignHelper.</tt><tt class="descname">set_campaign_delete_fail</tt><big>(</big><em>camp</em><big>)</big><a class="headerlink" href="#Lib.CampaignHelper.set_campaign_delete_fail" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a camp into deletefail</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Lib.CampaignHelper.set_campaign_deleted">
+<tt class="descclassname">Lib.CampaignHelper.</tt><tt class="descname">set_campaign_deleted</tt><big>(</big><em>camp</em><big>)</big><a class="headerlink" href="#Lib.CampaignHelper.set_campaign_deleted" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a camp into dead</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Lib.CampaignHelper.set_delete_pending">
+<tt class="descclassname">Lib.CampaignHelper.</tt><tt class="descname">set_delete_pending</tt><big>(</big><em>camp_list</em><big>)</big><a class="headerlink" href="#Lib.CampaignHelper.set_delete_pending" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the campaigns in the camp_list into &#8216;deletepending&#8217;.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Lib.CampaignHelper.update">
+<tt class="descclassname">Lib.CampaignHelper.</tt><tt class="descname">update</tt><big>(</big><em>campl</em>, <em>campo</em><big>)</big><a class="headerlink" href="#Lib.CampaignHelper.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the data of an local campaign with an online campaign object.</p>
+<p>..note:</p>
+<div class="highlight-python"><pre>The online campaign object is slitely diff. It's data attribute 
+        only holds the value of a certain hour. Not a list.
+
+        &gt;&gt;&gt; campo.data = {'spend': 1.23,
+        &gt;&gt;&gt;                       'impressions': 1000,
+        &gt;&gt;&gt;                               'engagements': 123}</pre>
+</div>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="TaskHelper.html"
+                        title="previous chapter">TaskHelper</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="SessionHelper.html"
+                        title="next chapter">SessionHelper</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/CampaignHelper.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="SessionHelper.html" title="SessionHelper"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="TaskHelper.html" title="TaskHelper"
+             >previous</a> |</li>
+        <li><a href="index.html">TwitterAdManager 3.0a documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Stayman Hou.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b2.
+    </div>
+  </body>
+</html>

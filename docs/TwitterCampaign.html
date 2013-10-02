@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>TwitterCampaign &mdash; TwitterAdManager 3.0a documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.0a',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="TwitterAdManager 3.0a documentation" href="index.html" />
+    <link rel="next" title="TwitterSummary" href="TwitterSummary.html" />
+    <link rel="prev" title="TwitterAccount" href="TwitterAccount.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="TwitterSummary.html" title="TwitterSummary"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="TwitterAccount.html" title="TwitterAccount"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">TwitterAdManager 3.0a documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="twittercampaign">
+<h1>TwitterCampaign<a class="headerlink" href="#twittercampaign" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="Lib.TwitterCampaign.TwitterCampaign">
+<em class="property">class </em><tt class="descclassname">Lib.TwitterCampaign.</tt><tt class="descname">TwitterCampaign</tt><a class="headerlink" href="#Lib.TwitterCampaign.TwitterCampaign" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>A Twitter Campaign object. Contains id, name,</dt>
+<dd>status, data and etc. It uses <a class="reference internal" href="DB.html#Lib.DB.DB" title="Lib.DB.DB"><tt class="xref py py-class docutils literal"><span class="pre">Lib.DB.DB</span></tt></a>.</dd>
+</dl>
+<p>..note:</p>
+<div class="highlight-python"><pre>self.data is stored as a JSON object in database</pre>
+</div>
+<dl class="staticmethod">
+<dt id="Lib.TwitterCampaign.TwitterCampaign.get_alive_createpending_num">
+<em class="property">static </em><tt class="descname">get_alive_createpending_num</tt><big>(</big><em>fi_id</em><big>)</big><a class="headerlink" href="#Lib.TwitterCampaign.TwitterCampaign.get_alive_createpending_num" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the number of the Campaigns of the account which are alive or 
+create_pending.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="Lib.TwitterCampaign.TwitterCampaign.get_list">
+<em class="property">static </em><tt class="descname">get_list</tt><big>(</big><em>fi_id</em>, <em>local_status=None</em><big>)</big><a class="headerlink" href="#Lib.TwitterCampaign.TwitterCampaign.get_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of <a class="reference internal" href="#Lib.TwitterCampaign.TwitterCampaign" title="Lib.TwitterCampaign.TwitterCampaign"><tt class="xref py py-class docutils literal"><span class="pre">Lib.TwitterCampaign.TwitterCampaign</span></tt></a> of a give fi_id.
+local_status can be specified.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Lib.TwitterCampaign.TwitterCampaign.save">
+<tt class="descname">save</tt><big>(</big><big>)</big><a class="headerlink" href="#Lib.TwitterCampaign.TwitterCampaign.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the campaign to database.
+If it has non-zeor <tt class="xref py py-attr docutils literal"><span class="pre">pk</span></tt>, it will do UPDATE.
+Otherwise, do INSERT.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="TwitterAccount.html"
+                        title="previous chapter">TwitterAccount</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="TwitterSummary.html"
+                        title="next chapter">TwitterSummary</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/TwitterCampaign.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="TwitterSummary.html" title="TwitterSummary"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="TwitterAccount.html" title="TwitterAccount"
+             >previous</a> |</li>
+        <li><a href="index.html">TwitterAdManager 3.0a documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Stayman Hou.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b2.
+    </div>
+  </body>
+</html>

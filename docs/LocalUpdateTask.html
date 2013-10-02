@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>LocalUpdateTask &mdash; TwitterAdManager 3.0a documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.0a',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="TwitterAdManager 3.0a documentation" href="index.html" />
+    <link rel="next" title="TwitterMonitorTask" href="TwitterMonitorTask.html" />
+    <link rel="prev" title="DeleteTask" href="DeleteTask.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="TwitterMonitorTask.html" title="TwitterMonitorTask"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="DeleteTask.html" title="DeleteTask"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">TwitterAdManager 3.0a documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="localupdatetask">
+<h1>LocalUpdateTask<a class="headerlink" href="#localupdatetask" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="Lib.LocalUpdateTask.LocalUpdateTask">
+<em class="property">class </em><tt class="descclassname">Lib.LocalUpdateTask.</tt><tt class="descname">LocalUpdateTask</tt><big>(</big><em>twitter_session</em>, <em>hour_start</em><big>)</big><a class="headerlink" href="#Lib.LocalUpdateTask.LocalUpdateTask" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="TwitterMonitorTask.html#Lib.TwitterMonitorTask.TwitterMonitorTask" title="Lib.TwitterMonitorTask.TwitterMonitorTask"><tt class="xref py py-class docutils literal"><span class="pre">Lib.TwitterMonitorTask.TwitterMonitorTask</span></tt></a></p>
+<p>This task will hold a reference of a <a class="reference internal" href="TwitterSession.html#Lib.TwitterSession.TwitterSession" title="Lib.TwitterSession.TwitterSession"><tt class="xref py py-class docutils literal"><span class="pre">Lib.TwitterSession.TwitterSession</span></tt></a> 
+while initialized and assign a check hour. Perform as a task to update the local database 
+from twitter server, including campaign data and summary data. Set non-online-exist campaigns to &#8216;dead&#8217;.
+Create non-local-but-online-exist campaigns and set to &#8216;alive&#8217;.</p>
+<dl class="method">
+<dt id="Lib.LocalUpdateTask.LocalUpdateTask.create_new">
+<tt class="descname">create_new</tt><big>(</big><big>)</big><a class="headerlink" href="#Lib.LocalUpdateTask.LocalUpdateTask.create_new" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create non-local-but-online-exist campaigns and set to &#8216;alive&#8217; 
+by calling <tt class="xref py py-func docutils literal"><span class="pre">CampaignHelper.create()</span></tt>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Lib.LocalUpdateTask.LocalUpdateTask.do">
+<tt class="descname">do</tt><big>(</big><big>)</big><a class="headerlink" href="#Lib.LocalUpdateTask.LocalUpdateTask.do" title="Permalink to this definition">¶</a></dt>
+<dd><p>return negative if fail, return 0 if succeed
+Calls following self methods in order. If any one of them failed, 
+return failed code immediately.
+<a class="reference internal" href="#Lib.LocalUpdateTask.LocalUpdateTask.get_local_list" title="Lib.LocalUpdateTask.LocalUpdateTask.get_local_list"><tt class="xref py py-func docutils literal"><span class="pre">Lib.LocalUpdateTask.LocalUpdateTask.get_local_list()</span></tt></a> &gt; 
+<a class="reference internal" href="#Lib.LocalUpdateTask.LocalUpdateTask.get_online_list" title="Lib.LocalUpdateTask.LocalUpdateTask.get_online_list"><tt class="xref py py-func docutils literal"><span class="pre">Lib.LocalUpdateTask.LocalUpdateTask.get_online_list()</span></tt></a> &gt; 
+<a class="reference internal" href="#Lib.LocalUpdateTask.LocalUpdateTask.update_summary" title="Lib.LocalUpdateTask.LocalUpdateTask.update_summary"><tt class="xref py py-func docutils literal"><span class="pre">Lib.LocalUpdateTask.LocalUpdateTask.update_summary()</span></tt></a> &gt; 
+<a class="reference internal" href="#Lib.LocalUpdateTask.LocalUpdateTask.remove_camp_local_no_online" title="Lib.LocalUpdateTask.LocalUpdateTask.remove_camp_local_no_online"><tt class="xref py py-func docutils literal"><span class="pre">Lib.LocalUpdateTask.LocalUpdateTask.remove_camp_local_no_online()</span></tt></a> &gt; 
+<a class="reference internal" href="#Lib.LocalUpdateTask.LocalUpdateTask.update_exist" title="Lib.LocalUpdateTask.LocalUpdateTask.update_exist"><tt class="xref py py-func docutils literal"><span class="pre">Lib.LocalUpdateTask.LocalUpdateTask.update_exist()</span></tt></a> &gt; 
+<a class="reference internal" href="#Lib.LocalUpdateTask.LocalUpdateTask.create_new" title="Lib.LocalUpdateTask.LocalUpdateTask.create_new"><tt class="xref py py-func docutils literal"><span class="pre">Lib.LocalUpdateTask.LocalUpdateTask.create_new()</span></tt></a> &gt;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Lib.LocalUpdateTask.LocalUpdateTask.get_local_list">
+<tt class="descname">get_local_list</tt><big>(</big><big>)</big><a class="headerlink" href="#Lib.LocalUpdateTask.LocalUpdateTask.get_local_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set self.camp_local_list with the alive local campaign list 
+by calling <a class="reference internal" href="TwitterCampaign.html#Lib.TwitterCampaign.TwitterCampaign.get_list" title="Lib.TwitterCampaign.TwitterCampaign.get_list"><tt class="xref py py-func docutils literal"><span class="pre">Lib.TwitterCampaign.TwitterCampaign.get_list()</span></tt></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Lib.LocalUpdateTask.LocalUpdateTask.get_online_list">
+<tt class="descname">get_online_list</tt><big>(</big><big>)</big><a class="headerlink" href="#Lib.LocalUpdateTask.LocalUpdateTask.get_online_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set self.camp_online_list with the alive online campaign list. 
+Not only this hour&#8217;s list but also this hour&#8217;s data.
+Loop to fetch datas of each page. 
+Max loop number is set in config.ini [&#8216;Monitor&#8217; - &#8216;max_campaign_scan_pages&#8217;].
+If there&#8217;s no more pages the loop will break.
+If the id is less than the minimum id in database, the loop will break, too.
+The minimum if is found by calling <a class="reference internal" href="CampaignHelper.html#Lib.CampaignHelper.find_min_id" title="Lib.CampaignHelper.find_min_id"><tt class="xref py py-func docutils literal"><span class="pre">Lib.CampaignHelper.find_min_id()</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Lib.LocalUpdateTask.LocalUpdateTask.perform">
+<tt class="descname">perform</tt><big>(</big><big>)</big><a class="headerlink" href="#Lib.LocalUpdateTask.LocalUpdateTask.perform" title="Permalink to this definition">¶</a></dt>
+<dd><p>invoke <a class="reference internal" href="#Lib.LocalUpdateTask.LocalUpdateTask.do" title="Lib.LocalUpdateTask.LocalUpdateTask.do"><tt class="xref py py-func docutils literal"><span class="pre">Lib.LocalUpdateTask.LocalUpdateTask.do()</span></tt></a> until success. 
+Success means the self.do() method returns 0
+See abstract method <a class="reference internal" href="TwitterMonitorTask.html#Lib.TwitterMonitorTask.TwitterMonitorTask.perform" title="Lib.TwitterMonitorTask.TwitterMonitorTask.perform"><tt class="xref py py-func docutils literal"><span class="pre">Lib.TwitterMonitorTask.TwitterMonitorTask.perform()</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Lib.LocalUpdateTask.LocalUpdateTask.remove_camp_local_no_online">
+<tt class="descname">remove_camp_local_no_online</tt><big>(</big><big>)</big><a class="headerlink" href="#Lib.LocalUpdateTask.LocalUpdateTask.remove_camp_local_no_online" title="Permalink to this definition">¶</a></dt>
+<dd><p>self.camp_local_list is modified so that there is no dead</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Lib.LocalUpdateTask.LocalUpdateTask.update_exist">
+<tt class="descname">update_exist</tt><big>(</big><big>)</big><a class="headerlink" href="#Lib.LocalUpdateTask.LocalUpdateTask.update_exist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the datas of local-exist campaigns based on self.camp_online_list. 
+self.camp_online_list is modified so that there is no exist</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Lib.LocalUpdateTask.LocalUpdateTask.update_summary">
+<tt class="descname">update_summary</tt><big>(</big><big>)</big><a class="headerlink" href="#Lib.LocalUpdateTask.LocalUpdateTask.update_summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the summary based on self.camp_online_list.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="DeleteTask.html"
+                        title="previous chapter">DeleteTask</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="TwitterMonitorTask.html"
+                        title="next chapter">TwitterMonitorTask</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/LocalUpdateTask.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="TwitterMonitorTask.html" title="TwitterMonitorTask"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="DeleteTask.html" title="DeleteTask"
+             >previous</a> |</li>
+        <li><a href="index.html">TwitterAdManager 3.0a documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Stayman Hou.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b2.
+    </div>
+  </body>
+</html>

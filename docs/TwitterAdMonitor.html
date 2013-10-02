@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>TwitterAdMonitor &mdash; TwitterAdManager 3.0a documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.0a',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="TwitterAdManager 3.0a documentation" href="index.html" />
+    <link rel="next" title="TwitterAdController" href="TwitterAdController.html" />
+    <link rel="prev" title="TwitterAdManager" href="TwitterAdManager.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="TwitterAdController.html" title="TwitterAdController"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="TwitterAdManager.html" title="TwitterAdManager"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">TwitterAdManager 3.0a documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="twitteradmonitor">
+<h1>TwitterAdMonitor<a class="headerlink" href="#twitteradmonitor" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="Lib.TwitterAdMonitor.TwitterAdMonitor">
+<em class="property">class </em><tt class="descclassname">Lib.TwitterAdMonitor.</tt><tt class="descname">TwitterAdMonitor</tt><a class="headerlink" href="#Lib.TwitterAdMonitor.TwitterAdMonitor" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class operates as a monitor. It keeps updating data between local database 
+and twitter server. Call <a class="reference internal" href="#Lib.TwitterAdMonitor.TwitterAdMonitor.start" title="Lib.TwitterAdMonitor.TwitterAdMonitor.start"><tt class="xref py py-meth docutils literal"><span class="pre">Lib.TwitterAdMonitor.TwitterAdMonitor.start()</span></tt></a> to start 
+the monitor. The function the process performs is implemented in the static method 
+<a class="reference internal" href="#Lib.TwitterAdMonitor.TwitterAdMonitor.OperateFunction" title="Lib.TwitterAdMonitor.TwitterAdMonitor.OperateFunction"><tt class="xref py py-meth docutils literal"><span class="pre">Lib.TwitterAdMonitor.TwitterAdMonitor.OperateFunction()</span></tt></a>.</p>
+<dl class="staticmethod">
+<dt id="Lib.TwitterAdMonitor.TwitterAdMonitor.OperateFunction">
+<em class="property">static </em><tt class="descname">OperateFunction</tt><big>(</big><big>)</big><a class="headerlink" href="#Lib.TwitterAdMonitor.TwitterAdMonitor.OperateFunction" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a static method. It setups a number of threads including <a class="reference internal" href="TwitterAdWorker.html#Lib.TwitterAdForeman.TwitterAdForeman" title="Lib.TwitterAdForeman.TwitterAdForeman"><tt class="xref py py-class docutils literal"><span class="pre">Lib.TwitterAdForeman.TwitterAdForeman</span></tt></a> 
+and <a class="reference internal" href="TwitterAdForeman.html#Lib.TwitterAdWorker.TwitterAdWorker" title="Lib.TwitterAdWorker.TwitterAdWorker"><tt class="xref py py-class docutils literal"><span class="pre">Lib.TwitterAdWorker.TwitterAdWorker</span></tt></a> according to the config.ini. 
+You can modify the value of &#8216;[Monitor] - worker_thread_max_num&#8217;. You must have at least 
+one thread. After the setup, it starts all of the threads, and wait for the threads join.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Lib.TwitterAdMonitor.TwitterAdMonitor.is_alive">
+<tt class="descname">is_alive</tt><big>(</big><big>)</big><a class="headerlink" href="#Lib.TwitterAdMonitor.TwitterAdMonitor.is_alive" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a boolean indicates if myprocess is alive</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Lib.TwitterAdMonitor.TwitterAdMonitor.join">
+<tt class="descname">join</tt><big>(</big><big>)</big><a class="headerlink" href="#Lib.TwitterAdMonitor.TwitterAdMonitor.join" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wait for the process to join. Call <tt class="xref py py-meth docutils literal"><span class="pre">Lib.TwitterAdMonitor.TwitterAdMonitor.myprocess.join()</span></tt>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Lib.TwitterAdMonitor.TwitterAdMonitor.myprocess">
+<tt class="descname">myprocess</tt><em class="property"> = None</em><a class="headerlink" href="#Lib.TwitterAdMonitor.TwitterAdMonitor.myprocess" title="Permalink to this definition">¶</a></dt>
+<dd><p>hold a <tt class="xref py py-class docutils literal"><span class="pre">multiprocessing.Process</span></tt>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Lib.TwitterAdMonitor.TwitterAdMonitor.start">
+<tt class="descname">start</tt><big>(</big><big>)</big><a class="headerlink" href="#Lib.TwitterAdMonitor.TwitterAdMonitor.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start the process. Call <tt class="xref py py-meth docutils literal"><span class="pre">Lib.TwitterAdMonitor.TwitterAdMonitor.myprocess.start()</span></tt>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Lib.TwitterAdMonitor.TwitterAdMonitor.terminate">
+<tt class="descname">terminate</tt><big>(</big><big>)</big><a class="headerlink" href="#Lib.TwitterAdMonitor.TwitterAdMonitor.terminate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Terminate myprocess.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="TwitterAdManager.html"
+                        title="previous chapter">TwitterAdManager</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="TwitterAdController.html"
+                        title="next chapter">TwitterAdController</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/TwitterAdMonitor.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="TwitterAdController.html" title="TwitterAdController"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="TwitterAdManager.html" title="TwitterAdManager"
+             >previous</a> |</li>
+        <li><a href="index.html">TwitterAdManager 3.0a documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Stayman Hou.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b2.
+    </div>
+  </body>
+</html>

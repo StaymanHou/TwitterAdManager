@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>TwitterAdWorker &mdash; TwitterAdManager 3.0a documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.0a',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="TwitterAdManager 3.0a documentation" href="index.html" />
+    <link rel="next" title="TwitterAdForeman" href="TwitterAdWorker.html" />
+    <link rel="prev" title="TwitterAdController" href="TwitterAdController.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="TwitterAdWorker.html" title="TwitterAdForeman"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="TwitterAdController.html" title="TwitterAdController"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">TwitterAdManager 3.0a documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="twitteradworker">
+<h1>TwitterAdWorker<a class="headerlink" href="#twitteradworker" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="Lib.TwitterAdWorker.TwitterAdWorker">
+<em class="property">class </em><tt class="descclassname">Lib.TwitterAdWorker.</tt><tt class="descname">TwitterAdWorker</tt><big>(</big><em>TaskQueue</em>, <em>TaskLock</em><big>)</big><a class="headerlink" href="#Lib.TwitterAdWorker.TwitterAdWorker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">threading.Thread</span></tt></p>
+<p>Worker extends <tt class="xref py py-class docutils literal"><span class="pre">threading.Thread</span></tt>. After starting, 
+it will periodically check the <tt class="xref py py-attr docutils literal"><span class="pre">TaskQueue</span></tt>. If there are works 
+fetchable, and fetch and work on the task. Upon finishing the task, 
+it opens the corresponding tube of the <tt class="xref py py-attr docutils literal"><span class="pre">TaskQueue</span></tt>.</p>
+<dl class="attribute">
+<dt id="Lib.TwitterAdWorker.TwitterAdWorker.TaskQueue">
+<tt class="descname">TaskQueue</tt><em class="property"> = None</em><a class="headerlink" href="#Lib.TwitterAdWorker.TwitterAdWorker.TaskQueue" title="Permalink to this definition">¶</a></dt>
+<dd><p>It is responsible for the communication between <a class="reference internal" href="TwitterAdWorker.html#Lib.TwitterAdForeman.TwitterAdForeman" title="Lib.TwitterAdForeman.TwitterAdForeman"><tt class="xref py py-class docutils literal"><span class="pre">Lib.TwitterAdForeman.TwitterAdForeman</span></tt></a>
+thread and <a class="reference internal" href="#Lib.TwitterAdWorker.TwitterAdWorker" title="Lib.TwitterAdWorker.TwitterAdWorker"><tt class="xref py py-class docutils literal"><span class="pre">Lib.TwitterAdWorker.TwitterAdWorker</span></tt></a>  threads. It is an object of
+<a class="reference internal" href="MultiTubeQueue.html#Lib.MultiTubeQueue.MultiTubeQueue" title="Lib.MultiTubeQueue.MultiTubeQueue"><tt class="xref py py-class docutils literal"><span class="pre">Lib.MultiTubeQueue.MultiTubeQueue</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Lib.TwitterAdWorker.TwitterAdWorker.check">
+<tt class="descname">check</tt><big>(</big><big>)</big><a class="headerlink" href="#Lib.TwitterAdWorker.TwitterAdWorker.check" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loop until no task to do. Within the loop, it checks the <tt class="xref py py-attr docutils literal"><span class="pre">TaskQueue</span></tt>.
+If get a task, it calls <a class="reference internal" href="Task.html#Lib.Task.Task.perform" title="Lib.Task.Task.perform"><tt class="xref py py-meth docutils literal"><span class="pre">Lib.Task.Task.perform()</span></tt></a> of the task. Upon finishing the task, 
+it opens the corresponding tube so that no two works will work on the tasks of a same 
+account simultaneously.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Lib.TwitterAdWorker.TwitterAdWorker.run">
+<tt class="descname">run</tt><big>(</big><big>)</big><a class="headerlink" href="#Lib.TwitterAdWorker.TwitterAdWorker.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implement the interface of Thread. it Periodically calls 
+<a class="reference internal" href="#Lib.TwitterAdWorker.TwitterAdWorker.check" title="Lib.TwitterAdWorker.TwitterAdWorker.check"><tt class="xref py py-meth docutils literal"><span class="pre">Lib.TwitterAdWorker.TwitterAdWorker.check()</span></tt></a>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="TwitterAdController.html"
+                        title="previous chapter">TwitterAdController</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="TwitterAdWorker.html"
+                        title="next chapter">TwitterAdForeman</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/TwitterAdForeman.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="TwitterAdWorker.html" title="TwitterAdForeman"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="TwitterAdController.html" title="TwitterAdController"
+             >previous</a> |</li>
+        <li><a href="index.html">TwitterAdManager 3.0a documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Stayman Hou.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b2.
+    </div>
+  </body>
+</html>

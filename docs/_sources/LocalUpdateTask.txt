@@ -1,0 +1,6 @@
+LocalUpdateTask
+===============
+
+.. autoclass:: Lib.LocalUpdateTask.LocalUpdateTask
+   :members:
+   :show-inheritance:

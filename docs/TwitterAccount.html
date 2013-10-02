@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>TwitterAccount &mdash; TwitterAdManager 3.0a documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.0a',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="TwitterAdManager 3.0a documentation" href="index.html" />
+    <link rel="next" title="TwitterCampaign" href="TwitterCampaign.html" />
+    <link rel="prev" title="TwitterSession" href="TwitterSession.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="TwitterCampaign.html" title="TwitterCampaign"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="TwitterSession.html" title="TwitterSession"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">TwitterAdManager 3.0a documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="twitteraccount">
+<h1>TwitterAccount<a class="headerlink" href="#twitteraccount" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="Lib.TwitterAccount.TwitterAccount">
+<em class="property">class </em><tt class="descclassname">Lib.TwitterAccount.</tt><tt class="descname">TwitterAccount</tt><a class="headerlink" href="#Lib.TwitterAccount.TwitterAccount" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Twitter Account object. Contains fi_id, username,
+password, status, data and etc. It uses <a class="reference internal" href="DB.html#Lib.DB.DB" title="Lib.DB.DB"><tt class="xref py py-class docutils literal"><span class="pre">Lib.DB.DB</span></tt></a>.</p>
+<dl class="staticmethod">
+<dt id="Lib.TwitterAccount.TwitterAccount.get_list">
+<em class="property">static </em><tt class="descname">get_list</tt><big>(</big><em>active=True</em><big>)</big><a class="headerlink" href="#Lib.TwitterAccount.TwitterAccount.get_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of accounts.By default, only active accounts 
+will be returned.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Lib.TwitterAccount.TwitterAccount.pause">
+<tt class="descname">pause</tt><big>(</big><big>)</big><a class="headerlink" href="#Lib.TwitterAccount.TwitterAccount.pause" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pause the account. It actually does the following instructions to pause.
+Set the max_campaign_num of the account to 0.
+Set the create_pending Campaigns of the account to create_fail.
+Set the alive Campaigns of the account to delete_pending.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Lib.TwitterAccount.TwitterAccount.set_controller_finished_hour">
+<tt class="descname">set_controller_finished_hour</tt><big>(</big><em>new_controller_finished_hour</em><big>)</big><a class="headerlink" href="#Lib.TwitterAccount.TwitterAccount.set_controller_finished_hour" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the controller_finished_hour field of the account
+to the given new_controller_finished_hour.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Lib.TwitterAccount.TwitterAccount.set_monitor_finished_hour">
+<tt class="descname">set_monitor_finished_hour</tt><big>(</big><em>new_monitor_finished_hour</em><big>)</big><a class="headerlink" href="#Lib.TwitterAccount.TwitterAccount.set_monitor_finished_hour" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the monitor_finished_hour field of the account 
+to the given new_monitor_finished_hour.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Lib.TwitterAccount.TwitterAccount.spend">
+<tt class="descname">spend</tt><big>(</big><em>new_spend</em><big>)</big><a class="headerlink" href="#Lib.TwitterAccount.TwitterAccount.spend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Spend money from the acc_budget_remain of the account.
+And pause the account if the acc_budget_remain is lower than 
+the budget_limit_threshold.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="TwitterSession.html"
+                        title="previous chapter">TwitterSession</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="TwitterCampaign.html"
+                        title="next chapter">TwitterCampaign</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/TwitterAccount.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="TwitterCampaign.html" title="TwitterCampaign"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="TwitterSession.html" title="TwitterSession"
+             >previous</a> |</li>
+        <li><a href="index.html">TwitterAdManager 3.0a documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Stayman Hou.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b2.
+    </div>
+  </body>
+</html>

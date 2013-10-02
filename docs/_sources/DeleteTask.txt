@@ -1,0 +1,6 @@
+DeleteTask
+==========
+
+.. autoclass:: Lib.DeleteTask.DeleteTask
+   :members:
+   :show-inheritance:
