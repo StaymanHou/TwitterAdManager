@@ -102,3 +102,18 @@ class TwitterAccount(object):
 		query_tuple = ("UPDATE Accounts SET CONTROLLER_FINISHED_HOUR=%s WHERE FI_ID=%s",
 				(self.controller_finished_hour, self.fi_id))
 		cur = db.execute(query_tuple)
+
+	def spend(self, new_spend):
+		db = DB()
+		self.acc_budget_remain -= new_spend
+		query_tuple = ("UPDATE Accounts SET ACC_BUDGET_REMAIN=%s WHERE FI_ID=%s",
+				(new_spend, self.fi_id))
+		cur = db.execute(query_tuple)
+		if self.acc_budget_remain < self.budget_limit_threshold:
+			self.pause()
+
+	def pause(self):
+		db = DB()
+		cur = db.execute(("UPDATE `Accounts` SET `MAX_CAMPAIGN_NUM`=0 WHERE `FI_ID`=%s",(self.fi_id)))
+		cur = db.execute(("UPDATE `Campaigns` SET `LOCAL_STATUS`=5 WHERE `FI_ID`=%s AND `LOCAL_STATUS`=3",(self.fi_id)))
+		cur = db.execute(("UPDATE `Campaigns` SET `LOCAL_STATUS`=4 WHERE `FI_ID`=%s AND `LOCAL_STATUS`=2",(self.fi_id)))

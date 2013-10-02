@@ -147,7 +147,7 @@ class LocalUpdateTask(TwitterMonitorTask):
 		"""Update the summary based on self.camp_online_list.
 		"""
 		summary = TwitterSummary.get_last(self.twitter_session.account.fi_id)
-		summary.new_spend = 0
+		summary.new_spend = 0.0
 		summary.new_engagements = 0
 		summary.new_impressions = 0
 		for camp in self.camp_online_list:
@@ -160,6 +160,7 @@ class LocalUpdateTask(TwitterMonitorTask):
 		summary.period_start = self.hour_start
 		summary.period_end = self.hour_start+DateTimeHelper.onehour
 		summary.save()
+		self.twitter_session.account.spend(new_spend)
 		return 0
 
 	def remove_camp_local_no_online(self):

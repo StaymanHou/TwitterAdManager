@@ -7,7 +7,7 @@ class TwitterSummary(object):
     fi_id = None
     period_start = None
     period_end = None
-    total_spend = 0
+    total_spend = 0.0
     total_impressions = 0
     total_engagements = 0
     new_spend = 0
