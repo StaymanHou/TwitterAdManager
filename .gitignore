@@ -13,3 +13,7 @@ list_files/*
 # Testing script #
 ##################
 test.py
+# Sublime project file #
+########################
+*.sublime-project
+*.sublime-workspace
