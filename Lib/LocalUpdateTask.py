@@ -6,10 +6,8 @@ from LocalStatus import LocalStatus
 import json
 import Config
 import CampaignHelper
-from LocalStatus import LocalStatus
-from datetime import datetime, timedelta
+from datetime import datetime
 import time
-from time import sleep
 import DateTimeHelper
 from TwitterSummary import TwitterSummary
 

@@ -86,6 +86,45 @@ class TwitterAccount(object):
 
 	get_list = staticmethod(get_list)
 
+	def refresh(self):
+		"""Refresh the data of the Account.
+		"""
+		if self.pk == 0:
+			return
+		db = DB()
+		cur = db.execute(("SELECT *, DES_DECRYPT(`PSWD`,%s) AS DEPSWD FROM `Accounts` WHERE `PK`=%s", (self.pk)))
+		row = cur.fetchone()
+		self.fi_id = row['FI_ID']
+		self.username = row['USERNAME']
+		self.password = row['DEPSWD']
+		self.active = row['ACTIVE']
+		self.budget_limit_threshold = row['BUDGET_LIMIT_THRESHOLD']
+		self.acc_budget = row['ACC_BUDGET']
+		self.acc_budget_remain = row['ACC_BUDGET_REMAIN']
+		self.poor_zscore_threshold = row['POOR_ZSCORE_THRESHOLD']
+		self.effective_days = row['EFFECTIVE_DAYS']
+		self.max_campaign_num = row['MAX_CAMPAIGN_NUM']
+		self.user_num_low = row['USER_NUM_LOW']
+		self.user_num_high = row['USER_NUM_HIGH']
+		self.user_private_weight = row['USER_PRIVATE_WEIGHT']
+		self.intst_num_low = row['INTST_NUM_LOW']
+		self.intst_num_high = row['INTST_NUM_HIGH']
+		self.intst_private_weight = row['INTST_PRIVATE_WEIGHT']
+		self.cntry_num_low = row['CNTRY_NUM_LOW']
+		self.cntry_num_high = row['CNTRY_NUM_HIGH']
+		self.cntry_private_weight = row['CNTRY_PRIVATE_WEIGHT']
+		self.bid_low = row['BID_LOW']
+		self.bid_high = row['BID_HIGH']
+		self.cmp_budget = row['CMP_BUDGET']
+		self.dly_budget = row['DLY_BUDGET']
+		self.pts = row['PTS']
+		self.gender = row['GENDER']
+		self.accelerated_delivery = row['ACCELERATED_DELIVERY']
+		self.monitor_finished_hour = row['MONITOR_FINISHED_HOUR']
+		self.controller_finished_hour = row['CONTROLLER_FINISHED_HOUR']
+		self.update_time = row['UPDATE_TIME']
+		self.deleted = row['DELETED']
+
 	def set_monitor_finished_hour(self, new_monitor_finished_hour):
 		"""Set the monitor_finished_hour field of the account 
 			to the given new_monitor_finished_hour.
@@ -120,6 +159,7 @@ class TwitterAccount(object):
 			the budget_limit_threshold.
 		"""
 		db = DB()
+		self.refresh()
 		self.acc_budget_remain -= new_spend
 		query_tuple = ("UPDATE Accounts SET ACC_BUDGET_REMAIN=%s WHERE FI_ID=%s",
 				(self.acc_budget_remain, self.fi_id))

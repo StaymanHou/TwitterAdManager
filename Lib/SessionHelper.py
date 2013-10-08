@@ -21,6 +21,9 @@ def update_sessions(twitter_sessions, task_queue):
 			remove_session_acc_pk_list.append(twitter_sessions_acc_pk_list[i])
 	for index in remove_session_index_list:
 		twitter_sessions.remove(twitter_sessions[index])
+	# refresh the account data of the existing twitter_sessions
+	for twitter_session in twitter_sessions:
+		twitter_session.account.refresh()
 	# add sessions which are new for twitter_sessions
 	new_twitter_sessions = []
 	for acc in acc_list:
