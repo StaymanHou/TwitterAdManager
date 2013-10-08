@@ -124,13 +124,13 @@ class LocalUpdateTask(TwitterMonitorTask):
 					camp.max_bid = float(value['max_bid'])
 					data = value['data']
 					camp.data['spend'] = 0
-					if 'spend_from_db' in data and len(data['spend_from_db'])>0 and data['spend_from_db'][-1]>0:
+					if data and 'spend_from_db' in data and len(data['spend_from_db'])>0 and data['spend_from_db'][-1]>0:
 						camp.data['spend'] = data['spend_from_db'][-1]
 					camp.data['engagements'] = 0
-					if 'engagements' in data and 'follows' in data['engagements'] and 'values' in data['engagements']['follows'] and len(data['engagements']['follows']['values'])>0 and data['engagements']['follows']['values'][-1]>0:
+					if data and 'engagements' in data and 'follows' in data['engagements'] and 'values' in data['engagements']['follows'] and len(data['engagements']['follows']['values'])>0 and data['engagements']['follows']['values'][-1]>0:
 						camp.data['engagements'] = data['engagements']['follows']['values'][-1]
 					camp.data['impressions'] = 0
-					if 'impressions' in data and 'values' in data['impressions'] and len(data['impressions']['values'])>0 and data['impressions']['values'][-1]>0:
+					if data and 'impressions' in data and 'values' in data['impressions'] and len(data['impressions']['values'])>0 and data['impressions']['values'][-1]>0:
 						camp.data['impressions'] = data['impressions']['values'][-1]
 					camp.pac_to_similar = value['is_pac']
 					self.camp_online_list.append(camp)
