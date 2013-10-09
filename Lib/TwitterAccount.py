@@ -92,7 +92,7 @@ class TwitterAccount(object):
 		if self.pk == 0:
 			return
 		db = DB()
-		cur = db.execute(("SELECT *, DES_DECRYPT(`PSWD`,%s) AS DEPSWD FROM `Accounts` WHERE `PK`=%s", (self.pk)))
+		cur = db.execute(("SELECT *, DES_DECRYPT(`PSWD`,%s) AS DEPSWD FROM `Accounts` WHERE `PK`=%s", (db.key, self.pk)))
 		row = cur.fetchone()
 		self.fi_id = row['FI_ID']
 		self.username = row['USERNAME']
