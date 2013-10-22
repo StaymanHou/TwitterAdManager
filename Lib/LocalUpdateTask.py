@@ -106,7 +106,11 @@ class LocalUpdateTask(TwitterMonitorTask):
 			if r.status_code!=200:
 				logging.warning('@%s Unexpected response while loading %s | Status code: %d'%(self.twitter_session.account.username, url, r.status_code))
 				return -2
-			campaign_data = json.loads(r.text)
+			try:
+				campaign_data = json.loads(r.text)
+			except Exception, e:
+				logging.warning('@%s can\'t parse json while loading %s'%(self.twitter_session.account.username, url))
+				return -3
 			# fetch data
 			for key, value in campaign_data['campaigns'].iteritems():
 				if value['active']:
