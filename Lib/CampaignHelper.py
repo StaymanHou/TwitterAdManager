@@ -128,6 +128,8 @@ def get_create_payload(camp, twitter_session):
 			   'campaign[pac_to_similar]': pts,
 			   'campaign[targeted_users]': camp.targeted_users,
 			   'campaign[targeted_interests]': camp.targeted_interests,
+			   'tv_targeting_type': 'tv_shows',
+			   'campaign[targeted_tv_shows]': '',
 			   'location_targeting': lt,# 'specific' for specific target
 			   'campaign[locations]': camp.locations,# location code
 			   'campaign[country_code]': '',# why it's empty
@@ -135,7 +137,8 @@ def get_create_payload(camp, twitter_session):
 			   'campaign[total_budget_amount_local]': str(camp.total_budget),
 			   'campaign[daily_budget_amount_local]': str(camp.daily_budget),
 			   'campaign[accelerated_delivery]': str(bool(camp.accelerated_delivery)).lower(),
-			   'campaign[bid_amount_local]': str(camp.max_bid)}
+			   'campaign[bid_amount_local]': str(camp.max_bid),
+			   'campaign[promoted_product_type]': '3'}
 	return payload
 
 def set_campaign_deleted(camp):
