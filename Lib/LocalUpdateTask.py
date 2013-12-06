@@ -89,15 +89,14 @@ class LocalUpdateTask(TwitterMonitorTask):
 		self.camp_online_list = []
 		for i in range(config.getint('Monitor', 'max_campaign_scan_pages')):
 			url = self.twitter_session.get_root_url()+'/campaigns_dashboard/data'
-			payload = {'user': self.twitter_session.account.username,
-					   'cursor': cursor,
-					   'granularity': 'hour',
+			payload = {'cursor': cursor,
 					   'start': str(int(time.mktime(self.hour_start.timetuple()))),
 					   'end': str(int(time.mktime((self.hour_start+DateTimeHelper.onehour).timetuple()))),
-					   'clients': 'false',
-					   'category': 'tc:t',
 					   'fi': str(self.twitter_session.account.fi_id),
-					   'campaign_list': ''}
+					   'product_type': 'all',
+					   'summary_metric': 'impressions',
+					   'metric_set': 'engagements',
+					   'campaigns_aspect': 'launched'}
 			try:
 				r = self.twitter_session.get(url, params=payload)
 			except Exception, e:
@@ -112,35 +111,35 @@ class LocalUpdateTask(TwitterMonitorTask):
 				logging.warning('@%s can\'t parse json while loading %s'%(self.twitter_session.account.username, url))
 				return -3
 			# fetch data
-			for key, value in campaign_data['campaigns'].iteritems():
-				if value['active']:
-					camp = TwitterCampaign()
-					camp.id = int(key)
-					camp.name = value['name']
-					camp.local_status = LocalStatus.TitletoPK['Alive']
-					camp.active = True
-					camp.start_time = datetime.fromtimestamp(value['start_time']/1000)
-					camp.fi_id = value['fi_id']
-					camp.total_budget = value['total_budget']
-					camp.daily_budget = value['daily_budget']
-					camp.max_bid = float(value['max_bid'])
-					data = value['data']
-					camp.data['spend'] = 0
-					if data and 'spend' in data and data['spend'] and 'values' in data['spend'] and len(data['spend']['values'])>0 and data['spend']['values'][-1]>0:
-						camp.data['spend'] = data['spend']['values'][-1]
-					camp.data['engagements'] = 0
-					if data and 'engagements' in data and data['engagements'] and 'follows' in data['engagements'] and data['engagements']['follows'] and 'values' in data['engagements']['follows'] and len(data['engagements']['follows']['values'])>0 and data['engagements']['follows']['values'][-1]>0:
-						camp.data['engagements'] = data['engagements']['follows']['values'][-1]
-					camp.data['impressions'] = 0
-					if data and 'impressions' in data and data['impressions'] and 'values' in data['impressions'] and len(data['impressions']['values'])>0 and data['impressions']['values'][-1]>0:
-						camp.data['impressions'] = data['impressions']['values'][-1]
-					camp.pac_to_similar = value['is_pac']
-					self.camp_online_list.append(camp)
+			for key, value in campaign_data['rollups'].iteritems():
+				camp = TwitterCampaign()
+				camp.id = int(key)
+				camp.name = 'unknown'
+				camp.local_status = LocalStatus.TitletoPK['Alive']
+				camp.active = True
+				camp.start_time = datetime.fromtimestamp(value['start_time']/1000)
+				camp.fi_id = self.twitter_session.account.fi_id
+				camp.total_budget = 0.0
+				camp.daily_budget = 0.0
+				camp.max_bid = 0.0
+				data = value
+				camp.data['spend'] = 0
+				if data and 'spends' in data and len(data['spends'])>0 and data['spends'][-1]>0:
+					camp.data['spend'] = data['spends'][-1]
+				camp.data['engagements'] = 0
+				if data and 'engagements' in data and data['engagements'] and len(data['engagements'])>0 and data['engagements'][-1]>0:
+					camp.data['engagements'] = data['engagements'][-1]
+				camp.data['impressions'] = 0
+				if data and 'impressions' in data and data['impressions'] and len(data['impressions'])>0 and data['impressions'][-1]>0:
+					camp.data['impressions'] = data['impressions'][-1]
+				camp.pac_to_similar = 0
+				self.camp_online_list.append(camp)
 			# set cursor
 			new_cursor = campaign_data['cursor']['next']
 			if new_cursor=='':
 				break
-			if int(re.search(':(.+?)$', new_cursor).group(1)) <= CampaignHelper.find_min_id(self.camp_local_list):
+			has_deleted = re.search('deleted', r.text)
+			if has_deleted is not None:
 				break
 			cursor = new_cursor
 		return 0
