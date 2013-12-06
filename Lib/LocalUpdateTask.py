@@ -117,7 +117,7 @@ class LocalUpdateTask(TwitterMonitorTask):
 				camp.name = 'unknown'
 				camp.local_status = LocalStatus.TitletoPK['Alive']
 				camp.active = True
-				camp.start_time = datetime.fromtimestamp(value['start_time']/1000)
+				camp.start_time = datetime.now() 
 				camp.fi_id = self.twitter_session.account.fi_id
 				camp.total_budget = 0.0
 				camp.daily_budget = 0.0
