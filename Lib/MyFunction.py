@@ -33,7 +33,9 @@ def Username2Userid(l_username):
     import requests
     import re
     import bsddb
+    import string
     db = bsddb.hashopen('name2id.db')
+    l_username = l_username.decode("cp1252").encode('ascii','ignore').translate(string.maketrans("",""), ''.join(string.punctuation.split('_'))+' ')
     if l_username in db:
         if db[l_username][0] == '-':
             return abs(int(db[l_username]))

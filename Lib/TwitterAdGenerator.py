@@ -85,6 +85,8 @@ def crtpd2refillcmp(account, generate_num):
             t_userid = Username2Userid(username)
             if type(t_userid) != unicode:
                 continue
+            if t_userid in target_user_id:
+                continue
             target_user_id.append(t_userid)
         for t_userid in target_user_id:
             targeted_users += t_userid+','
