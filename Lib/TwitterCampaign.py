@@ -70,6 +70,8 @@ class TwitterCampaign(object):
             local_status can be specified. 
         """
         db = DB()
+        query_tuple = ("DELETE FROM `Campaigns` WHERE `ID`=0 AND `LOCAL_STATUS`=4", ())
+        db.execute(query_tuple)
         query_tuple = None
         if local_status is None:
             query_tuple = ("SELECT * FROM `Campaigns` WHERE `FI_ID`=%s", (fi_id))

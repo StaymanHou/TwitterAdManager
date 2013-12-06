@@ -138,27 +138,7 @@ def get_create_payload(camp, twitter_session):
 			   'campaign[total_budget_amount_local]': str(camp.total_budget),
 			   'campaign[daily_budget_amount_local]': str(camp.daily_budget),
 			   'campaign[accelerated_delivery]': str(bool(camp.accelerated_delivery)).lower(),
-			   'campaign[bid_amount_local]': str(camp.max_bid),
-			   'campaign[promoted_product_type]': '3',
-			   'reach_estimation[userId]': Username2Userid(twitter_session.account.username),
-			   'reach_estimation[follower]': 'false',
-			   'reach_estimation[lookalike]': 'false',
-			   'reach_estimation[locations]': camp.locations,
-			   'reach_estimation[desktop]': 'true',
-			   'reach_estimation[ios]': 'true',
-			   'reach_estimation[android]': 'true',
-			   'reach_estimation[blackberry]': 'true',
-			   'reach_estimation[otherMobile]': 'true',
-			   'reach_estimation[allDevices]': 'false',
-			   'reach_estimation[interests]': camp.targeted_interests,
-			   'reach_estimation[users]': camp.targeted_users,
-			   'reach_estimation[contentType]': 'PAC',
-			   'reach_estimation[bid]': str(camp.max_bid),
-			   'reach_estimation[currency]': 'USD',
-			   'reach_estimation[bidOptimizationPreference]': '',
-			   'reach_estimation[wifiOnly]': 'false',
-			   'reach_estimation[retargetingSegments]': '',
-			   'reach_estimation[retargetingLookalikeEnabled]': 'false'}
+			   'campaign[bid_amount_local]': str(camp.max_bid)}
 	return payload
 
 def set_campaign_deleted(camp):
