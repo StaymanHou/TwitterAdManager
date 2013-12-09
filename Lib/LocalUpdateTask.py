@@ -132,6 +132,7 @@ class LocalUpdateTask(TwitterMonitorTask):
 				camp.data['impressions'] = 0
 				if data and 'impressions' in data and data['impressions'] and len(data['impressions'])>0 and data['impressions'][-1]>0:
 					camp.data['impressions'] = data['impressions'][-1]
+				else: continue
 				camp.pac_to_similar = 0
 				self.camp_online_list.append(camp)
 			# set cursor
