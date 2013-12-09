@@ -138,9 +138,9 @@ class LocalUpdateTask(TwitterMonitorTask):
 			new_cursor = campaign_data['cursor']['next']
 			if new_cursor=='':
 				break
-			has_deleted = re.search('deleted', r.text)
-			if has_deleted is not None:
-				break
+			# has_deleted = re.search('deleted', r.text)
+			# if has_deleted is not None:
+				# break
 			cursor = new_cursor
 		return 0
 
