@@ -17,8 +17,8 @@ def get_poor_performance_camp_list(account):
 		Otherwise, return the result of :func:`Lib.TwitterAdAnalyzer.TwitterAdAnalyzer.GetPoorPfmcCmpListIMPBased` call.
 	"""
 	if account.poor_zscore_threshold <= -99:
-		TwitterCampaign.get_list(account.fi_id, local_status=LocalStatus.TitletoPK['Alive'])
-	return TwitterAdAnalyzer.GetPoorPfmcCmpListIMPBased(account)
+		return TwitterCampaign.get_list(account.fi_id, local_status=LocalStatus.TitletoPK['Alive'])
+	return TwitterAdAnalyzer.GetPoorPfmcCmpListENGBased(account)
 
 def set_delete_pending(camp_list):
 	"""Set the campaigns in the camp_list into 'deletepending'.
