@@ -7,7 +7,7 @@ from numpy import mean,std
 from datetime import datetime,timedelta
 from TwitterCampaign import TwitterCampaign
 from LocalStatus import LocalStatus
-from MyFunction import Username2Userid
+from MyFunction import Userid2Username
 
 def GetIMPDistributionOneDay(fi_id,bid,time_limit=0,record_limit=10000):
     """This function calculates the distribution of the impressions versus one day. 
@@ -168,8 +168,8 @@ def WriteIMPPHVerseUserAndNum():
     query_tuple = ("SELECT TARGETED_USERS, DATA FROM Campaigns WHERE 1",())
     cur = db.execute(query_tuple)
 
-    fp3 = open('testuserid.txt','a')
-    fp4 = open('testusernum.txt','a')
+    fp3 = open('testuserid.txt','w')
+    fp4 = open('testusernum.txt','w')
     userid_dict = {}
     usernum_dict = {}
     print 'record num: %d'%cur.rowcount
@@ -204,7 +204,7 @@ def WriteENGPHVerseUser(FI_ID):
     query_tuple = ("SELECT TARGETED_USERS, DATA FROM Campaigns WHERE FI_ID = %s",(FI_ID,))
     cur = db.execute(query_tuple)
 
-    fp3 = open('Analyze_result.txt','a')
+    fp3 = open('Analyze_result.txt','w')
     userid_dict = {}
     print 'record num: %d'%cur.rowcount
     for i in range(cur.rowcount):
@@ -223,7 +223,7 @@ def WriteENGPHVerseUser(FI_ID):
     fp3.write('total\t'+str(len(userid_dict))+'\n')
     fp3.write('userid\thours\tave\tstd\tusername\n')
     for userid in userid_dict:
-        fp3.write(userid+'\t'+str(len(userid_dict[userid]))+'\t'+str(mean(userid_dict[userid]))+'\t'+str(std(userid_dict[userid]))+'\t'+Username2Userid(userid)+'\n')
+        fp3.write(str(userid)+'\t'+str(len(userid_dict[userid]))+'\t'+str(mean(userid_dict[userid]))+'\t'+str(std(userid_dict[userid]))+'\t'+Userid2Username(userid)+'\n')
     fp3.close()
 
 def WriteIMPPHVerseBid(PK=1900, FI_ID=30269805):
