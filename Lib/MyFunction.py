@@ -54,3 +54,19 @@ def Username2Userid(l_username):
         return m
     db[l_username] = str(-l_r.status_code)
     return l_r.status_code
+    
+def Userid2Username(l_userid):
+    import bsddb
+    l_userid = str(l_userid)
+    nidb = bsddb.hashopen('name2id.db')
+    indb = bsddb.hashopen('id2name.db')
+    if l_userid in indb:
+        return indb[l_userid]
+    p = nidb.first()
+    while 1:
+        if p[1] == l_userid:
+            indb[l_userid] = p[0]
+            return p[0]
+        try: p = nidb.next()
+        except Exception, e: return 'unknown'
+
