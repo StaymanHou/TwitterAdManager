@@ -56,16 +56,21 @@ def Username2Userid(l_username):
     return l_r.status_code
     
 def Userid2Username(l_userid):
-    import bsddb
+    from MyDict import INTEREST_NAME_DICT
     l_userid = str(l_userid)
+    return INTEREST_NAME_DICT[l_userid]
+
+def Intstid2Intstname(l_intstid):
+    import bsddb
+    l_intstid = str(l_intstid)
     nidb = bsddb.hashopen('name2id.db')
     indb = bsddb.hashopen('id2name.db')
-    if l_userid in indb:
-        return indb[l_userid]
+    if l_intstid in indb:
+        return indb[l_intstid]
     p = nidb.first()
     while 1:
-        if p[1] == l_userid:
-            indb[l_userid] = p[0]
+        if p[1] == l_intstid:
+            indb[l_intstid] = p[0]
             return p[0]
         try: p = nidb.next()
         except Exception, e: return 'unknown'

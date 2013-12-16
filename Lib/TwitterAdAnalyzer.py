@@ -7,7 +7,7 @@ from numpy import mean,std
 from datetime import datetime,timedelta
 from TwitterCampaign import TwitterCampaign
 from LocalStatus import LocalStatus
-from MyFunction import Userid2Username
+from MyFunction import Userid2Username, Intstid2Intstname
 
 def GetIMPDistributionOneDay(fi_id,bid,time_limit=0,record_limit=10000):
     """This function calculates the distribution of the impressions versus one day. 
@@ -204,7 +204,7 @@ def WriteENGPHVerseUser(FI_ID):
     query_tuple = ("SELECT TARGETED_USERS, DATA FROM Campaigns WHERE FI_ID = %s",(FI_ID,))
     cur = db.execute(query_tuple)
 
-    fp3 = open('Analyze_result.txt','w')
+    fp3 = open('Analyze_result_user.txt','w')
     userid_dict = {}
     print 'record num: %d'%cur.rowcount
     for i in range(cur.rowcount):
@@ -224,6 +224,33 @@ def WriteENGPHVerseUser(FI_ID):
     fp3.write('userid\thours\tave\tstd\tusername\n')
     for userid in userid_dict:
         fp3.write(str(userid)+'\t'+str(len(userid_dict[userid]))+'\t'+str(mean(userid_dict[userid]))+'\t'+str(std(userid_dict[userid]))+'\t'+Userid2Username(userid)+'\n')
+    fp3.close()
+
+def WriteENGPHVerseIntst(FI_ID):
+    db = DB()
+    query_tuple = ("SELECT TARGETED_INTERESTS, DATA FROM Campaigns WHERE FI_ID = %s",(FI_ID,))
+    cur = db.execute(query_tuple)
+
+    fp3 = open('Analyze_result_intrest.txt','w')
+    intstid_dict = {}
+    print 'record num: %d'%cur.rowcount
+    for i in range(cur.rowcount):
+        row = cur.fetchone()
+        temp_interest = row['TARGETED_INTERESTS']
+        if temp_interest==None: continue
+        if len(temp_interest)==0: continue
+        temp_interest = temp_interest.split(',')
+        temp_data = json.loads(row['DATA'])['engagements']
+        if temp_data == []: continue
+        for interest in temp_interest:
+            if interest not in intstid_dict:
+                intstid_dict[interest] = []
+            intstid_dict[interest].extend(temp_data)
+
+    fp3.write('total\t'+str(len(intstid_dict))+'\n')
+    fp3.write('interestid\thours\tave\tstd\tinterest\n')
+    for intstid in intstid_dict:
+        fp3.write(str(intstid)+'\t'+str(len(intstid_dict[intstid]))+'\t'+str(mean(intstid_dict[intstid]))+'\t'+str(std(intstid_dict[intstid]))+'\t'+Intstid2Intstname(intstid)+'\n')
     fp3.close()
 
 def WriteIMPPHVerseBid(PK=1900, FI_ID=30269805):
