@@ -124,8 +124,8 @@ class LocalUpdateTask(TwitterMonitorTask):
 				camp.max_bid = 0.0
 				data = value
 				camp.data['spend'] = 0
-				if data and 'spends' in data and len(data['spends'])>0 and data['spends'][-1]>0:
-					camp.data['spend'] = data['spends'][-1]
+				if data and 'spend' in data and len(data['spend'])>0 and data['spend'][-1]>0:
+					camp.data['spend'] = data['spend'][-1]
 				camp.data['engagements'] = 0
 				if data and 'engagements' in data and data['engagements'] and len(data['engagements'])>0 and data['engagements'][-1]>0:
 					camp.data['engagements'] = data['engagements'][-1]

@@ -135,6 +135,11 @@ def get_create_payload(camp, twitter_session):
 			   'campaign[locations]': camp.locations,# location code
 			   'campaign[country_code]': '',# why it's empty
 			   'campaign[gender]': str(camp.gender),
+			   'rendered_without_broad_match_targeting': 'false',
+			   'cursor': '',
+			   'open_timeline': 'true',
+			   'new_tweets': '',
+			   'new_scheduled_tweets': '',
 			   'campaign[total_budget_amount_local]': str(camp.total_budget),
 			   'campaign[daily_budget_amount_local]': str(camp.daily_budget),
 			   'campaign[accelerated_delivery]': str(bool(camp.accelerated_delivery)).lower(),
