@@ -131,6 +131,7 @@ def get_create_payload(camp, twitter_session):
 			   'campaign[targeted_interests]': camp.targeted_interests,
 			   'tv_targeting_type': 'tv_shows',
 			   'campaign[targeted_tv_shows]': '',
+			   'campaign[tailored_audiences_crm][data_source]': 'custom_audience',
 			   'location_targeting': lt,# 'specific' for specific target
 			   'campaign[locations]': camp.locations,# location code
 			   'campaign[country_code]': '',# why it's empty
